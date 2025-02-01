@@ -1,0 +1,50 @@
+body {
+    font-family: system-ui;
+    background-color: #FFF3E0;
+}
+
+#image-pos {
+    border-radius: 1px;
+    border-color: black;
+    border-style: solid;
+}
+
+.detailed {
+    border-radius: 1px;
+    border-color: grey;
+    border-style: solid;
+}
+
+.detailed:hover {
+    border-radius: 2px;
+    border-color: black;
+}
+
+
+
+#orange-span {
+    color: orange;
+}
+
+#big-emphasis {
+    font-size: large;
+}
+
+li > p.hidden:hover {
+    color: black;
+}
+
+li > p.hidden::before {
+    content: '\25BA   ';
+    position: relative;
+}
+
+p.hidden {
+    color: grey;
+    padding-left: 10px;
+}
+
+.fun-facts {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
