@@ -1,0 +1,29 @@
+#container1 {
+    background-color: red;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#container2 {
+    background-color: blue;
+    width: 50%;
+    height: auto;
+}
+
+#container3 {
+    background-color: green;
+    width: 50%;
+    height: auto;
+}
+
+#container4 {
+    background-color: orange;
+    width: 50%;
+    height: auto;
+}
+
+p {
+    font-family: 'Courier New', Courier, monospace;
+}
