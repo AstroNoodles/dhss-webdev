@@ -1,23 +1,11 @@
-body {
-    background-color: #9655ff;
-}
 
+/* PAGE PROPERTIES */
 #title {
     background-color:aqua;
 }
 
 p, h1, h2, h4 {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
-
-p {
-    font-weight: 600;
-    font-size: 10vw;
-    margin-left: 5px;
-}
-
-.header {
-    margin-bottom: 30px;
 }
 
 .header > * {
@@ -27,20 +15,120 @@ p {
 .lyrics > .verse {
     margin-bottom: 50px;
 }
+/* FOR ALL THE VERSE PROPERTIES */
 
+p {
+    font-weight: 400;
+    font-size: 16px;
+    margin-left: 5px;
+}
+
+.small-start {
+    font-size: 15px;
+    font-weight: 200;
+}
+
+.medium-start {
+    font-size: 17px;
+    font-weight: 200;
+}
+
+.large-start {
+    font-size: 21px;
+    font-weight: 200;
+}
+
+.shut {
+    color: darkgrey;
+    letter-spacing: -1px;
+}
+
+.lights-on {
+    color: gray;
+    letter-spacing: 1px;
+}
+
+.lights-on:hover {
+    color: yellow;
+}
+
+.alight {
+    letter-spacing: 3px;
+    color: lightgreen;
+}
+
+.trees-gone, #gone {
+    color: gray;
+    letter-spacing: 1px;
+}
+
+#gone {
+    color: darkslategray;
+}
+
+.my-heart {
+    color: red;
+    font-weight: 900;
+    font-size: large;
+}
+
+.red-beat {
+    font-weight: 100;
+    color: #EF5350;
+}
+
+.orange-beat {
+    font-weight: 100;
+    color: #EF9A9A;
+}
+
+#favorite-song {
+    color: red;
+    -webkit-text-stroke-width: 0px;
+    -webkit-text-stroke-color: pink;
+    font-weight: 900;
+    font-size: large;
+}
+
+.vertical-verse {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.block {
+    display: flex;
+}
+
+#heaven {
+    color: #64B5F6;
+    text-shadow: 1px 1px #BBDEFB;
+    font-size: x-large;
+}
+
+#sight {
+    color: #BBDEFB;
+    text-shadow: 1px 1px;
+    font-size: x-large;
+}
+
+.interlude {
+    margin: 0 auto;
+    color: #0000ff;
+    border: 1px solid black;
+    background-color: lightcyan;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.emoji {
+    display: inline-block;
+}
+
+/* For moving every letter down when used in a span */
 .down-smidge {
     position: relative;
     top: 30px;
     padding: 10px;
     margin: 30px;
     color: red;
-}
-
-.seperate {
-    margin-left: 60px;
-}
-
-.symphony > p {
-    display: inline-block;
-    margin: 15px;
 }
