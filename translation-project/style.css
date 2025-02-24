@@ -1,7 +1,6 @@
-
 /* PAGE PROPERTIES */
 #title {
-    background-color:#BBDEFB;
+    background-color: #BBDEFB;
     border: 1px dashed black;
     width: fit-content;
     margin: 0 auto;
@@ -26,16 +25,19 @@
     font-weight: 600;
 }
 
-p, h1, h2, h4 {
+p,
+h1,
+h2,
+h4 {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-.header > * {
+.header>* {
     text-align: center;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-.lyrics > .verse {
+.lyrics>.verse {
     margin-bottom: 50px;
     text-align: center;
 }
@@ -86,7 +88,8 @@ p {
     color: lightgreen;
 }
 
-.trees-gone, .gone {
+.trees-gone,
+.gone {
     color: gray;
     letter-spacing: 1px;
 }
@@ -222,7 +225,7 @@ p {
 
 /* FOR THE CHORUS */
 
-.chorus{
+.chorus {
     font-size: 2rem;
     text-align: center;
     text-transform: capitalize;
@@ -297,7 +300,9 @@ p {
     font-weight: 600;
 }
 
-.isasub {font-size: 2rem;}
+.isasub {
+    font-size: 2rem;
+}
 
 .waterfall2 {
     font-size: 15vw;
@@ -311,7 +316,7 @@ p {
 }
 
 .waterfall3 {
-    color:#64B5F6;
+    color: #64B5F6;
     font-size: 4rem;
 }
 
@@ -322,7 +327,9 @@ p {
     font-weight: 700;
 }
 
-.waterfallsub {color: cyan;}
+.waterfallsub {
+    color: cyan;
+}
 
 .bridge {
     text-align: center;
@@ -330,7 +337,7 @@ p {
 }
 
 .golden {
-    color: goldenrod; 
+    color: goldenrod;
 }
 
 .slide {
