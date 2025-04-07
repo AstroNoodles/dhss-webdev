@@ -17,16 +17,27 @@
     border-style: solid;
     border-radius: 2px;
     min-width: 20vw;
+    display: none;
+    transition: visibility 10s 2s;
+}
+
+#sidebar-button {
+    box-shadow: inset 2px 2px 3px rgba(255, 255, 255, 0.6),
+    inset -2px -2px 3px rgba(0, 0, 0, 0.6);
+}
+
+#sidebar-button:active {
+    box-shadow: inset -2px -2px 3px rgba(255, 255, 255, 0.6),
+    inset 2px 2px 3px rgba(0, 0, 0, 0.6);
 }
 
 .content {
     min-width: 40vw;
-    padding-left: 10px;
     padding-right: 10px;
 }
 
 .info-screen {
-    border-left-color: darkblue;
+    border-left-color: lightblue;
     border-right-color: transparent;
     border-top-color: transparent;
     border-bottom-color: transparent;
@@ -36,12 +47,28 @@
     min-width: 20vw;
 }
 
+.codelist {
+    overflow: auto;
+    max-height: 80vh;
+}
+
 .code-button {
     border-color: pink;
     border-style: solid;
-    border-radius: 3px;
+    border-radius: 1px;
     padding: 10px;
     margin: 10px;
+    transition: border-color 1s, box-shadow 1s;
+}
+
+.code-button:hover {
+    border-color:deeppink;
+    border-radius: 2px;
+    color: blue;   
+}
+
+.code-button:active {
+    box-shadow: 3px 3px 3px lightsteelblue;
 }
 
 .airline {
@@ -50,6 +77,17 @@
     margin-right: 10px;
     border: 1px gainsboro solid;
     padding: 10px;
+    transition: border-color 1s, box-shadow 1s;
+}
+
+.airline:hover {
+    border-radius: 5px;
+    border-color: slategray;
+    border-style: solid;
+}
+
+.airline:active {
+    box-shadow: 3px 3px 2px grey;
 }
 
 .code {
@@ -69,7 +107,9 @@
 
 .progress-meter {
     border: 1px plum solid;
-    
+    min-width: fit-content;
+    padding: 15px;
+    margin-top: 10px;
 }
 
 #flight-progress {
@@ -80,6 +120,14 @@
 
 .intro-text {
     font-size: calc(var(--font-size) * 0.25);
+}
+
+#chosen-flight-header {
+    margin-bottom: 0px;
+}
+
+#progress-header {
+    font-size: calc(var(--font-size) * 0.3);
 }
 
 /* DEFAULT PROPERTIES */
@@ -112,18 +160,14 @@ p {
     font-family: var(--font-family);
 }
 
-.main-body {
-    margin-top: 20px;
-}
-
 #note {
     font-style: oblique;
 }
 
 .airline-header {
     margin-left: 5px;
+    margin-top: 7px;
 }
-
 
 #sidebar-button {
     border-color: gainsboro;

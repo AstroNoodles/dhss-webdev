@@ -2,9 +2,9 @@
 <html lang="en">
 
 <head>
-    <title>Cereals Of The World</title>
+    <title>Your Airline Connection</title>
     <link href="style.css" rel="stylesheet">
-    <script src="script.js"></script>
+    <script src="script.js" async ></script>
 </head>
 
 <body>
@@ -12,8 +12,8 @@
     <p class="intro-text">You can peruse here some of the interesting flights I have bookmarked over the past few months. Check their
         origin, destination, flight code as well as average flight time and status.</p>
     <p id="note" class="intro-text">Right now, limited to Lufthansa Group airlines but will add more airlines soon!</p>
-    <button id="sidebar-button" type="button">
-        <img src="double-arrow-down.png" alt="Pull Sidebar Down" width="50" height="50">
+    <button id='sidebar-button' type="button">
+        <img id = 'sidebar-btn-img' src="double-arrow-right.png" alt="Pull Sidebar Down" width="50" height="50">
     </button>
     <hr>
     <div class="collection-flex">
@@ -61,7 +61,7 @@
         </main>
         <article class="info-screen">
             <div class="airline-logo">
-                <img src="airline-logos/eurowings.png" alt="Airline Chosen" width="300" height="200">
+                <img src="airline-logos/eurowings.png" alt="Airline Chosen" width="300">
             </div>
             <h2 id="chosen-flight-header">4Y 51</h2>
             <div class="grid-info">
@@ -81,15 +81,15 @@
                 <p>Arriving <span id="to-status"><strong>20 MINUTES EARLY</strong></span></p>
             </div>
             <div class="progress-meter">
-                <label for="flight-progress"><p>Flight Progress</p></label>
+                <label for="flight-progress"><p id="progress-header">Flight Progress</p></label>
                 <progress id="flight-progress" max="100" value="40">40%</progress>
                 <div class="progress-info">
                     <p>Flight Time: <span id="flight-time">7 HOURS 43 MINUTES</span></p>
                     <p>Time Remaining: <span id="flight-remaining">2 HOURS 10 MINUTES</span></p>
                 </div>
-            </div>
-            <div class="airline-logo">
-                <img src="flight-photo.jpeg" alt="Flight Photo IFRAME" height="500">
+                <div class="airline-logo">
+                    <img src="flight-photo.jpeg" alt="Flight Photo IFRAME" height="300">
+                </div>
             </div>
         </article>
     </div>
