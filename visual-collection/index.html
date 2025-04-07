@@ -52,16 +52,16 @@
         </aside>
         <main class="content">
             <div class="codelist">
-                <div class="code-button">
+                <!-- <div class="code-button">
                     <p class="code">4Y 51</p>
                 </div>
                 <div class="code-button">
-                    <p class="code">LH 2222</p>
+                    <p class="code">LH 2222</p> !-->
                 </div>
         </main>
         <article class="info-screen">
             <div class="airline-logo">
-                <img src="airline-logos/eurowings.png" alt="Airline Chosen" width="300">
+                <img id='chosen-flight-image' src="airline-logos/eurowings.png" alt="Airline Chosen" width="300">
             </div>
             <h2 id="chosen-flight-header">4Y 51</h2>
             <div class="grid-info">
@@ -69,16 +69,14 @@
                 <h4 id="to-header">FRA</h4>
                 <p id="from-place"><em>Philadelphia, PA</em></p>
                 <p id="to-place"><em>Frankfurt Am Main, Germany</em></p>
-                <p id="from-terminal">Left <strong>Terminal A</strong></p>
-                <p id="to-terminal">Arriving <strong>Terminal A</strong></p>
-                <p id="from-full-header"><a href="" target="_blank">Philadelphia Intl' - PHL</a></p>
-                <p id="to-full-header"><a href="" target="_blank">Frankfurt Intl' - FRA</a></p>
+                <p>Left <strong id="from-terminal">Terminal A</strong></p>
+                <p>Arriving <strong id="to-terminal">Terminal A</strong></p>
                 <p id="from-date">06-Apr-2025</p>
                 <p id="to-date">07-Apr-2025</p>
                 <p id="from-time"><strong>5:54 PM ET</strong></p>
                 <p id="to-time"><strong>6:23 PM CET</strong></p>
-                <p>Departed <span id="from-status"><strong>ONTIME</strong></span></p>
-                <p>Arriving <span id="to-status"><strong>20 MINUTES EARLY</strong></span></p>
+                <p>Departed <strong id="from-status">ONTIME</strong></p>
+                <p>Arrived <strong id="to-status">20 MINUTES EARLY</strong></p>
             </div>
             <div class="progress-meter">
                 <label for="flight-progress"><p id="progress-header">Flight Progress</p></label>

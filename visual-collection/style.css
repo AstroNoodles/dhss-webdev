@@ -67,8 +67,16 @@
     color: blue;   
 }
 
-.code-button:active {
+.code-button-selected {
     box-shadow: 3px 3px 3px lightsteelblue;
+}
+
+.code-button-disabled {
+    background: gainsboro;
+}
+
+.code-button-disabled:hover {
+    background: lightgray;
 }
 
 .airline {
