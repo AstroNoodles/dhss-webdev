@@ -1,0 +1,132 @@
+:root {
+    --font-family: Helvetica, Arial, sans-serif;
+    --font-size: 3rem;
+}
+
+.collection-flex {
+    display: flex;
+    gap: 5px;
+}
+
+.sidebar {
+    border-right-color: lightblue;
+    border-left-color: transparent;
+    border-bottom-color: transparent;
+    border-top-color: transparent;
+    padding-right: 20px; 
+    border-style: solid;
+    border-radius: 2px;
+    min-width: 20vw;
+}
+
+.content {
+    min-width: 40vw;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.info-screen {
+    border-left-color: darkblue;
+    border-right-color: transparent;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+    border-style: solid;
+    border-radius: 4px;
+    padding-left: 20px;
+    min-width: 20vw;
+}
+
+.code-button {
+    border-color: pink;
+    border-style: solid;
+    border-radius: 3px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.airline {
+    margin-bottom: 50px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border: 1px gainsboro solid;
+    padding: 10px;
+}
+
+.code {
+    font-weight: 600;
+    font-size: calc(var(--font-size) * 0.3)
+}
+
+.airline-logo {
+    border: 1px solid black;
+}
+
+.grid-info {
+    display: grid;
+    column-gap: 50px;
+    grid-template-columns: 1fr 1fr;
+}
+
+.progress-meter {
+    border: 1px plum solid;
+    
+}
+
+#flight-progress {
+    margin: 5px;
+    border-radius: 2px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+}
+
+.intro-text {
+    font-size: calc(var(--font-size) * 0.25);
+}
+
+/* DEFAULT PROPERTIES */
+
+h1 {
+    font-size: var(--font-size);
+    font-family: var(--font-family);
+    margin-bottom: 15px;
+}
+
+h2 {
+    font-size: calc(var(--font-size) * 0.8);
+    font-family: var(--font-family);
+    margin-bottom: 10px;
+}
+
+h4 {
+    font-size: calc(var(--font-size) * 0.7);
+    font-family: var(--font-family);
+    margin-bottom: 10px;
+}
+
+h5 {
+    font-size: calc(var(--font-size) * 0.6);
+    font-family: var(--font-family);
+}
+
+p {
+    font-size: calc(var(--font-size) * 0.2);
+    font-family: var(--font-family);
+}
+
+.main-body {
+    margin-top: 20px;
+}
+
+#note {
+    font-style: oblique;
+}
+
+.airline-header {
+    margin-left: 5px;
+}
+
+
+#sidebar-button {
+    border-color: gainsboro;
+    border-style: solid;
+    border-radius: 1px;
+}

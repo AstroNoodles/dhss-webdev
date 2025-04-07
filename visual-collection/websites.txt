@@ -1,0 +1,3 @@
+https://api.developer.iata.org/lufthansa-lufthansa-default/api/customer-flight-info/
+https://developer.lufthansa.com/docs/read/api_details/operations/Customer_Flight_Information
+https://developer.lufthansa.com/docs/read/api_details/flight_schedules
