@@ -14,6 +14,7 @@ let codeImageDict = {
 async function fetchFlightStatus(flightCode, flightCodeBox, flightDate) {
     const url = `https://customer-flight-info.p-eu.rapidapi.com/customerflightinformation/${flightCode}/${flightDate}`;
     // const urlD = `https://customer-flight-info.p-eu.rapidapi.com/customerflightinformation/${flightCode}/2025-04-05`;
+    
     console.log(url)
 
     // in future, need to remove secret key...
@@ -53,6 +54,9 @@ async function fetchFlightStatus(flightCode, flightCodeBox, flightDate) {
             chosenFlightHeader.classList.add('error-header')
 
             // Error information
+            let airlineCode = flightCode.substring(0, 2)
+            chosenFlightImage.src = codeImageDict[airlineCode]
+            
             chosenFlightHeader.textContent = `No flight can be found for this flight code. Try again later!`
             fromCode.textContent = `XXX`
             toCode.textContent = `XXX`
