@@ -134,6 +134,11 @@
     margin-bottom: 0px;
 }
 
+.error-header {
+    color: red;
+    font-weight: 400;
+}
+
 #progress-header {
     font-size: calc(var(--font-size) * 0.3);
 }

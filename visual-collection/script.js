@@ -13,48 +13,72 @@ let codeImageDict = {
 
 async function fetchFlightStatus(flightCode, flightCodeBox, flightDate) {
     const url = `https://customer-flight-info.p-eu.rapidapi.com/customerflightinformation/${flightCode}/${flightDate}`;
+    // const urlD = `https://customer-flight-info.p-eu.rapidapi.com/customerflightinformation/${flightCode}/2025-04-05`;
     console.log(url)
 
     // in future, need to remove secret key...
     const options = {
         method: 'GET',
         headers: {
-            Authorization: 'Bearer 2q5y7r5tvq6e53yvjkx6mge6',
+            Authorization: 'Bearer 9q3b7z5re7u2f33m76pgnyuh',
             'X-RapidAPI-Key': '3797d19498msh35809fc55e6fb25p1cc76ejsnbdcd51c7e0eb',
             'X-RapidAPI-Host': 'customer-flight-info.iata.rapidapi.com'
         }
-    };
+    };    
 
     try {
         const response = await fetch(url, options);
 
+        let chosenFlightHeader = document.getElementById('chosen-flight-header')
+        let chosenFlightImage = document.getElementById('chosen-flight-image')
+
+        let fromCode = document.getElementById('from-header')
+        let toCode = document.getElementById('to-header')
+        let fromTerm = document.getElementById('from-terminal')
+        let toTerm = document.getElementById('to-terminal')
+        let fromDate = document.getElementById('from-date')
+        let toDate = document.getElementById('to-date')
+        let fromTime = document.getElementById('from-time')
+        let toTime = document.getElementById('to-time')
+        let fromStatus = document.getElementById('from-status')
+        let toStatus = document.getElementById('to-status')
+
+        let progressBar = document.getElementById('flight-progress')
+        let flightTime = document.getElementById('flight-time')
+        let flightRemaining = document.getElementById('flight-remaining')
+
         if (!response.ok) {
             console.log(new Error(`Response status: ${response.status}, ${response.statusText}`))
             flightCodeBox.classList.add('code-button-disabled')
+            chosenFlightHeader.classList.add('error-header')
+
+            // Error information
+            chosenFlightHeader.textContent = `No flight can be found for this flight code. Try again later!`
+            fromCode.textContent = `XXX`
+            toCode.textContent = `XXX`
+            fromTerm.textContent = `TERMINAL UNAVAILABLE`
+            toTerm.textContent = `TERMINAL UNAVAILABLE`
+            fromDate.textContent = `Apr-2025`
+            toDate.textContent = `Apr-2025`
+            fromTime.textContent = `X:XX PM`
+            toTime.textContent = `X:XX PM`
+            toStatus.textContent = `ONTIME`
+
+            progressBar.value = "0"
+            flightTime.textContent = `INFINITY HOURS INFINITY MINUTES`
+            flightRemaining.textContent = `INFINITY HOURS INFINITY MINUTES`
+
         } else {
             let flightInfo = await response.json()
             console.log(flightInfo)
 
-            let chosenFlightHeader = document.getElementById('chosen-flight-header')
-            let chosenFlightImage = document.getElementById('chosen-flight-image')
-
-            let fromCode = document.getElementById('from-header')
-            let toCode = document.getElementById('to-header')
-            let fromTerm = document.getElementById('from-terminal')
-            let toTerm = document.getElementById('to-terminal')
-            let fromDate = document.getElementById('from-date')
-            let toDate = document.getElementById('to-date')
-            let fromTime = document.getElementById('from-time')
-            let toTime = document.getElementById('to-time')
-            let fromStatus = document.getElementById('from-status')
-            let toStatus = document.getElementById('to-status')
-
-            let progressBar = document.getElementById('flight-progress')
-            let flightTime = document.getElementById('flight-time')
-            let flightRemaining = document.getElementById('flight-remaining')
-
             let airlineCode = flightCode.substring(0, 2)
             let mainFlightInfo = flightInfo['FlightInformation']['Flights']['Flight']
+
+            // Remove the red color from header if previous list item was erroneous code
+            if(chosenFlightHeader.classList.contains('error-header')) {
+                chosenFlightHeader.classList.remove('error-header')
+            }
 
             // HEADER AND FLIGHT CARRIER INFO
             chosenFlightHeader.textContent = flightCode
@@ -125,6 +149,7 @@ async function fetchFlightStatus(flightCode, flightCodeBox, flightDate) {
                 toStatus.textContent = `${Math.floor(numericStatusD / 60)} MINUTES ${statusA}`
             } else toStatus.textContent = 'ON TIME'
 
+            // FLIGHT TIME INFORMATION
             if (mainFlightInfo['Status']['Code'] === 'LD') {
                 let secTaken = (actualArrival.getTime() - actualDeparture.getTime()) / 1000
                 let minTaken = (secTaken / 60) % 60
