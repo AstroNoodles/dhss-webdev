@@ -11,6 +11,105 @@ let codeImageDict = {
     'EW': 'airline-logos/eurowings.png'
 }
 
+
+// Utility function to reverse lookup a dictionary
+function reverseLookup(obj, value) {
+    return Object.keys(obj).find(key => obj[key] === value) || null;
+}
+
+function setUpMap() {
+    var map = L.map('map').setView([48.126, 11.55], 13)
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    var popup = L.popup()
+    var marker = L.marker([48.126, 11.55]).addTo(map);
+    map.on('click', (e) => {
+        popup
+        .setLatLng(e.latlng)
+        .setContent("You clicked the map at " + e.latlng.toString())
+        .openOn(map);
+    })
+}
+
+async function convertCodeToAirportName(flightCode) {
+    const airportsURL = 'https://raw.githubusercontent.com/AstroNoodles/dhss-webdev/refs/heads/main/visual-collection/airports.csv'
+    const airportsList = await fetch(airportsURL)
+    let data = await airportsList.text()
+
+    const parsedData = Papa.parse(data, {
+        header: true,
+        skipEmptyLines: true
+    })
+
+    console.log(parsedData)
+
+    for(let i = 0; i < parsedData.data.length; i++) {
+        let row = parsedData.data[i]
+        console.log(`IATA Code: ${row['IATA Code']}`)
+        console.log(`Flight Code: ${flightCode}`)
+        if(row['IATA Code'] === flightCode) {
+            return row['Airport Name']
+        }
+    }
+
+    return 'Airport'
+}
+
+async function updateFlightBox() {
+    let flightBox = document.querySelector(".codelist")
+    const flightsURL = 'https://raw.githubusercontent.com/AstroNoodles/dhss-webdev/refs/heads/main/visual-collection/interesting_flights.txt'
+    try {
+        const response = await fetch(flightsURL)
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}, ${response.statusText}`);
+        } else {
+            // do stuff
+            let flights = await response.text()
+            console.log(flights)
+
+            let cleanedFlightsArr = flights.split("\n")
+            console.log(cleanedFlightsArr)
+
+            cleanedFlightsArr.forEach((flightCode) => {
+                let cleanedFlightCode = flightCode.substring(0, 6).replace(" ", "")
+                let airlineCode = flightCode.substring(0, 2)
+                console.log(airlineCode)
+
+                if (Object.keys(codeImageDict).includes(airlineCode)) {
+                    let flightCodeBox = document.createElement('div')
+                    let flightCodeText = document.createElement('p')
+
+                    flightCodeText.textContent = cleanedFlightCode
+                    flightCodeText.className = 'code'
+                    flightCodeBox.className = 'code-button'
+
+                    flightCodeBox.addEventListener('click', (e) => {
+                        let prevDate = new Date();
+                        prevDate.setDate(prevDate.getDate() - 1)
+
+                        const isoFormatter = new Intl.DateTimeFormat('en-CA', {
+                            year: 'numeric',
+                            month: '2-digit',
+                            day: '2-digit',
+                        })
+
+                        fetchFlightStatus(cleanedFlightCode, flightCodeBox, isoFormatter.format(prevDate))
+                    })
+
+                    flightCodeBox.appendChild(flightCodeText)
+                    flightBox.appendChild(flightCodeBox)
+                }
+            })
+        }
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+// Fetches Flight Status from Lufthansa Group UI and Updates UI
 async function fetchFlightStatus(flightCode, flightCodeBox, flightDate) {
     const url = `https://customer-flight-info.p-eu.rapidapi.com/customerflightinformation/${flightCode}/${flightDate}`;
     // const urlD = `https://customer-flight-info.p-eu.rapidapi.com/customerflightinformation/${flightCode}/2025-04-05`;
@@ -21,11 +120,11 @@ async function fetchFlightStatus(flightCode, flightCodeBox, flightDate) {
     const options = {
         method: 'GET',
         headers: {
-            Authorization: 'Bearer 9q3b7z5re7u2f33m76pgnyuh',
+            Authorization: 'Bearer uxgnnb25wsu9v8chss6qdqm8',
             'X-RapidAPI-Key': '3797d19498msh35809fc55e6fb25p1cc76ejsnbdcd51c7e0eb',
             'X-RapidAPI-Host': 'customer-flight-info.iata.rapidapi.com'
-        }
-    };    
+          }
+        }  
 
     try {
         const response = await fetch(url, options);
@@ -35,6 +134,8 @@ async function fetchFlightStatus(flightCode, flightCodeBox, flightDate) {
 
         let fromCode = document.getElementById('from-header')
         let toCode = document.getElementById('to-header')
+        let fromPlace = document.getElementById('from-place')
+        let toPlace = document.getElementById('to-place')
         let fromTerm = document.getElementById('from-terminal')
         let toTerm = document.getElementById('to-terminal')
         let fromDate = document.getElementById('from-date')
@@ -53,6 +154,11 @@ async function fetchFlightStatus(flightCode, flightCodeBox, flightDate) {
             flightCodeBox.classList.add('code-button-disabled')
             chosenFlightHeader.classList.add('error-header')
 
+            if(fromPlace.classList.contains('airports')) {
+                fromPlace.classList.remove('airports')
+                toPlace.classList.remove('airports')
+            }
+
             // Error information
             let airlineCode = flightCode.substring(0, 2)
             chosenFlightImage.src = codeImageDict[airlineCode]
@@ -60,6 +166,8 @@ async function fetchFlightStatus(flightCode, flightCodeBox, flightDate) {
             chosenFlightHeader.textContent = `No flight can be found for this flight code. Try again later!`
             fromCode.textContent = `XXX`
             toCode.textContent = `XXX`
+            fromPlace.textContent = 'Unavailable'
+            toPlace.textContent = 'Unavailable'
             fromTerm.textContent = `TERMINAL UNAVAILABLE`
             toTerm.textContent = `TERMINAL UNAVAILABLE`
             fromDate.textContent = `Apr-2025`
@@ -92,27 +200,44 @@ async function fetchFlightStatus(flightCode, flightCodeBox, flightDate) {
 
             // TERMINAL INFO
             let terminalInfoD = mainFlightInfo['Departure']['Terminal']
-            if (terminalInfoD.hasOwnProperty('Name') && terminalInfoD.hasOwnProperty('Gate')) {
-                fromTerm.textContent = `TERMINAL ${terminalInfoD['Name']} - GATE ${terminalInfoD['Gate']}`
-            } else if (terminalInfoD.hasOwnProperty('Name')) {
-                fromTerm.textContent = `TERMINAL ${terminalInfoD['Name']}`
-            } else if (terminalInfoD.hasOwnProperty('Gate')) {
-                fromTerm.textContent = `GATE ${terminalInfoD['Gate']}`
-            } else {
+
+            if(!mainFlightInfo['Departure'].hasOwnProperty('Terminal')) {
                 fromTerm.textContent = 'TERMINAL'
+            } else {
+                if (terminalInfoD.hasOwnProperty('Name') && terminalInfoD.hasOwnProperty('Gate')) {
+                    fromTerm.textContent = `TERMINAL ${terminalInfoD['Name']} - GATE ${terminalInfoD['Gate']}`
+                } else if (terminalInfoD.hasOwnProperty('Name')) {
+                    fromTerm.textContent = `TERMINAL ${terminalInfoD['Name']}`
+                } else if (terminalInfoD.hasOwnProperty('Gate')) {
+                    fromTerm.textContent = `GATE ${terminalInfoD['Gate']}`
+                } else {
+                    fromTerm.textContent = 'TERMINAL'
+                }
             }
 
             // TERMINAL INFO
             let terminalInfoA = mainFlightInfo['Arrival']['Terminal']
-            if (terminalInfoA.hasOwnProperty('Name') && terminalInfoA.hasOwnProperty('Gate')) {
-                toTerm.textContent = `TERMINAL ${terminalInfoA['Name']} - GATE ${terminalInfoA['Gate']}`
-            } else if (terminalInfoA.hasOwnProperty('Name')) {
-                toTerm.textContent = `TERMINAL ${terminalInfoA['Name']}`
-            } else if (terminalInfoA.hasOwnProperty('Gate')) {
-                toTerm.textContent = `GATE ${terminalInfoA['Gate']}`
-            } else {
+
+            if(!mainFlightInfo['Arrival'].hasOwnProperty('Terminal')) {
                 toTerm.textContent = 'TERMINAL'
+            } else {
+                if (terminalInfoA.hasOwnProperty('Name') && terminalInfoA.hasOwnProperty('Gate')) {
+                    toTerm.textContent = `TERMINAL ${terminalInfoA['Name']} - GATE ${terminalInfoA['Gate']}`
+                } else if (terminalInfoA.hasOwnProperty('Name')) {
+                    toTerm.textContent = `TERMINAL ${terminalInfoA['Name']}`
+                } else if (terminalInfoA.hasOwnProperty('Gate')) {
+                    toTerm.textContent = `GATE ${terminalInfoA['Gate']}`
+                } else {
+                    toTerm.textContent = 'TERMINAL'
+                }
             }
+
+            // Place Name Info
+            fromPlace.textContent = await convertCodeToAirportName(mainFlightInfo['Departure']['AirportCode'])
+            toPlace.textContent = await convertCodeToAirportName(mainFlightInfo['Arrival']['AirportCode'])
+
+            fromPlace.classList.add('airports')
+            toPlace.classList.add('airports')
 
             // DATE INFO
             fromDate.textContent = mainFlightInfo['Departure']['Actual']['Date']
@@ -168,6 +293,8 @@ async function fetchFlightStatus(flightCode, flightCodeBox, flightDate) {
                 flightTime.textContent = `${Math.floor(hoursTaken)} HOURS, ${Math.floor(minTaken)} MINUTES`
                 flightRemaining.textContent = `0 HOURS 0 MINUTES`
             }
+
+            
         }
 
     } catch (error) {
@@ -176,62 +303,7 @@ async function fetchFlightStatus(flightCode, flightCodeBox, flightDate) {
 
 }
 
-async function updateFlightBox() {
-    let flightBox = document.querySelector(".codelist")
-    const flightsURL = 'https://raw.githubusercontent.com/AstroNoodles/dhss-webdev/refs/heads/main/visual-collection/interesting_flights.txt'
-    try {
-        const response = await fetch(flightsURL)
-        if (!response.ok) {
-            throw new Error(`Response status: ${response.status}, ${response.statusText}`);
-        } else {
-            // do stuff
-            let flights = await response.text()
-            console.log(flights)
-
-            let cleanedFlightsArr = flights.split("\n")
-            console.log(cleanedFlightsArr)
-
-            cleanedFlightsArr.forEach((flightCode) => {
-                let cleanedFlightCode = flightCode.substring(0, 6).replace(" ", "")
-                let airlineCode = flightCode.substring(0, 2)
-                console.log(airlineCode)
-
-                if (Object.keys(codeImageDict).includes(airlineCode)) {
-                    let flightCodeBox = document.createElement('div')
-                    let flightCodeText = document.createElement('p')
-
-                    flightCodeText.textContent = cleanedFlightCode
-                    flightCodeText.className = 'code'
-                    flightCodeBox.className = 'code-button'
-
-                    flightCodeBox.addEventListener('click', (e) => {
-                        let prevDate = new Date();
-                        prevDate.setDate(prevDate.getDate() - 2)
-
-                        const isoFormatter = new Intl.DateTimeFormat('en-CA', {
-                            year: 'numeric',
-                            month: '2-digit',
-                            day: '2-digit',
-                        })
-
-                        fetchFlightStatus(cleanedFlightCode, flightCodeBox, isoFormatter.format(prevDate))
-                    })
-
-                    flightCodeBox.appendChild(flightCodeText)
-                    flightBox.appendChild(flightCodeBox)
-                }
-            })
-        }
-    } catch (error) {
-        console.error(error)
-    }
-}
-
-function reverseLookup(obj, value) {
-    return Object.keys(obj).find(key => obj[key] === value) || null;
-}
-
-
+// MAIN functionality
 let sidebarButton = document.querySelector('#sidebar-button')
 let sidebar = document.querySelector('.sidebar');
 let buttonIcon = document.querySelector('#sidebar-btn-img');
@@ -252,6 +324,9 @@ sidebarButton.addEventListener('click', (e) => {
 })
 
 updateFlightBox()
+
+// set up the map
+setUpMap()
 
 
 

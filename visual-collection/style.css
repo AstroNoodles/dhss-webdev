@@ -146,6 +146,18 @@
     font-weight: 400;
 }
 
+.airports {
+    color: blueviolet;
+    font-weight: 700;
+    font-style: oblique;
+}
+
+#map {
+    min-height: 800px;
+    min-width: 1000px;
+}
+
+
 #progress-header {
     font-size: calc(var(--font-size) * 0.3);
 }
