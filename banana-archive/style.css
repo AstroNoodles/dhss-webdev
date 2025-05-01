@@ -1,0 +1,74 @@
+:root {
+    --primary-color: #ffbe00;
+    --secondary-color: #ffab00;
+    --tertiary-color: #ff11aa;
+    --primary-size: 1.5rem;
+    --secondary-size: 1rem;
+    --primary-font: Georgia, Times, serif;
+    --border-color: #D7CCC8;
+    --padding-value: 10px;
+    --sidebar-gap-width: 100px;
+  } 
+  
+ .bee {
+    color: red;
+  }
+  
+ .archive-record:nth-child(even) {
+    color: white;
+  }
+  
+.archive-record:active {
+    background-color: aliceblue;
+    transition: 2.7s cubic-bezier(.26,.85,1,1);
+    border: 2px pink solid;
+  }
+  
+ .archive-record::first-letter {
+    font-weight: 700;
+    font-size: 2rem;
+  }
+  
+ h1 {
+    color: var(--primary-color);
+  }
+  
+ body {
+      font-family: var(--primary-font);
+      margin: 0;
+      display: flex;
+ }
+  
+ .sidebar {
+      width: var(--sidebar-gap-width);
+      border: 2px var(--border-color) solid;
+      padding: var(--padding-value);
+      height: 100vh;
+ }
+  
+ .content {
+      flex: 1;
+      padding: 20px;
+ }
+  
+ .archive-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 3fr));
+      gap: 5px;
+ }
+  
+ .archive-record {
+      background: var(--secondary-color);
+      border: 2px solid black;
+      padding: 15px;
+ }
+  
+ .banana {
+    color: var(--tertiary-color);
+ }
+  
+ @media (max-width: 768px) {
+      .sidebar {
+        display: none;
+      }
+ }

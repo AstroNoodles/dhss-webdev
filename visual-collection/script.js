@@ -24,17 +24,10 @@ function setUpMap() {
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
 
-    var popup = L.popup()
-    var marker = L.marker([48.126, 11.55]).addTo(map);
-    map.on('click', (e) => {
-        popup
-        .setLatLng(e.latlng)
-        .setContent("You clicked the map at " + e.latlng.toString())
-        .openOn(map);
-    })
+    return map
 }
 
-async function convertCodeToAirportName(flightCode) {
+async function convertCodeToAirportName(flightCode, map) {
     const airportsURL = 'https://raw.githubusercontent.com/AstroNoodles/dhss-webdev/refs/heads/main/visual-collection/airports.csv'
     const airportsList = await fetch(airportsURL)
     let data = await airportsList.text()
@@ -51,14 +44,24 @@ async function convertCodeToAirportName(flightCode) {
         console.log(`IATA Code: ${row['IATA Code']}`)
         console.log(`Flight Code: ${flightCode}`)
         if(row['IATA Code'] === flightCode) {
-            return row['Airport Name']
+            L.marker([row['Latitude'], row['Longitude']]).addTo(map)
+
+            return {
+                'Airport Name': row['Airport Name'],
+                'Longitude': row['Longitude'],
+                'Latitude': row['Latitude']    
+            }
         }
     }
 
-    return 'Airport'
+    return {
+        'Airport Name': 'Airport',
+        'Longitude': 55,
+        'Latitude': -17
+    }
 }
 
-async function updateFlightBox() {
+async function updateFlightBox(map) {
     let flightBox = document.querySelector(".codelist")
     const flightsURL = 'https://raw.githubusercontent.com/AstroNoodles/dhss-webdev/refs/heads/main/visual-collection/interesting_flights.txt'
     try {
@@ -96,7 +99,7 @@ async function updateFlightBox() {
                             day: '2-digit',
                         })
 
-                        fetchFlightStatus(cleanedFlightCode, flightCodeBox, isoFormatter.format(prevDate))
+                        fetchFlightStatus(cleanedFlightCode, flightCodeBox, isoFormatter.format(prevDate), map)
                     })
 
                     flightCodeBox.appendChild(flightCodeText)
@@ -110,7 +113,7 @@ async function updateFlightBox() {
 }
 
 // Fetches Flight Status from Lufthansa Group UI and Updates UI
-async function fetchFlightStatus(flightCode, flightCodeBox, flightDate) {
+async function fetchFlightStatus(flightCode, flightCodeBox, flightDate, map) {
     const url = `https://customer-flight-info.p-eu.rapidapi.com/customerflightinformation/${flightCode}/${flightDate}`;
     // const urlD = `https://customer-flight-info.p-eu.rapidapi.com/customerflightinformation/${flightCode}/2025-04-05`;
     
@@ -233,8 +236,19 @@ async function fetchFlightStatus(flightCode, flightCodeBox, flightDate) {
             }
 
             // Place Name Info
-            fromPlace.textContent = await convertCodeToAirportName(mainFlightInfo['Departure']['AirportCode'])
-            toPlace.textContent = await convertCodeToAirportName(mainFlightInfo['Arrival']['AirportCode'])
+            let fromAirport = await convertCodeToAirportName(mainFlightInfo['Departure']['AirportCode'], map)
+            let toAirport = await convertCodeToAirportName(mainFlightInfo['Arrival']['AirportCode'], map)
+
+            fromPlace.textContent = fromAirport['Airport Name']
+            toPlace.textContent = toAirport['Airport Name']
+
+            let latLngCoords = [
+                [fromAirport['Latitude'], toAirport['Longitude']],
+                [toAirport['Latitude'], toAirport['Longitude']]
+            ]
+
+            let polyline = L.polyline(latLngCoords, {color: 'red'}).addTo(map)
+            map.fitBounds(polyline.fitBounds())
 
             fromPlace.classList.add('airports')
             toPlace.classList.add('airports')
@@ -323,10 +337,8 @@ sidebarButton.addEventListener('click', (e) => {
     }
 })
 
+let map = setUpMap()
 updateFlightBox()
-
-// set up the map
-setUpMap()
 
 
 
