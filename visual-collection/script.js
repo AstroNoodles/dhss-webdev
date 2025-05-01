@@ -3,8 +3,10 @@
 let codeImageDict = {
     'LH': 'airline-logos/lufthansa.png',
     'EN': 'airline-logos/airdolomiti.png',
+    'VL': 'airline-logos/lufthansa-city.png',
     'LX': 'airline-logos/swiss.png',
     'AZ': 'airline-logos/ita.png',
+    'SN': 'airline-logos/brussels.png',
     '4Y': 'airline-logos/discover.png',
     'OS': 'airline-logos/austrian.png',
     'WK': 'airline-logos/edelweiss.png',
@@ -13,7 +15,6 @@ let codeImageDict = {
 
 let inactiveList = []
 let layerGroup = L.layerGroup()
-
 
 // Utility function to reverse lookup a dictionary
 function reverseLookup(obj, value) {
@@ -195,7 +196,13 @@ async function fetchFlightStatus(flightCode, flightCodeBox, flightDate, map) {
             console.log(flightInfo)
 
             let airlineCode = flightCode.substring(0, 2)
+
             let mainFlightInfo = flightInfo['FlightInformation']['Flights']['Flight']
+
+            // handle multiple flights packed into one flight code
+            if(Array.isArray(mainFlightInfo)) {
+                mainFlightInfo = mainFlightInfo[0]
+            }
 
             // Remove the red color from header if previous list item was erroneous code
             if(chosenFlightHeader.classList.contains('error-header')) {
