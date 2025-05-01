@@ -37,13 +37,15 @@ async function convertCodeToAirportName(flightCode, map) {
         skipEmptyLines: true
     })
 
-    console.log(parsedData)
+    //console.log(parsedData)
 
     for(let i = 0; i < parsedData.data.length; i++) {
         let row = parsedData.data[i]
         console.log(`IATA Code: ${row['IATA Code']}`)
         console.log(`Flight Code: ${flightCode}`)
         if(row['IATA Code'] === flightCode) {
+            console.log('a match!')
+            console.log([row['Latitude'], row['Longitude']])
             L.marker([row['Latitude'], row['Longitude']]).addTo(map)
 
             return {
@@ -54,6 +56,7 @@ async function convertCodeToAirportName(flightCode, map) {
         }
     }
 
+    console.log('no matches found')
     return {
         'Airport Name': 'Airport',
         'Longitude': 55,
@@ -195,6 +198,7 @@ async function fetchFlightStatus(flightCode, flightCodeBox, flightDate, map) {
                 chosenFlightHeader.classList.remove('error-header')
             }
 
+
             // HEADER AND FLIGHT CARRIER INFO
             chosenFlightHeader.textContent = flightCode
             chosenFlightImage.src = codeImageDict[airlineCode]
@@ -239,16 +243,17 @@ async function fetchFlightStatus(flightCode, flightCodeBox, flightDate, map) {
             let fromAirport = await convertCodeToAirportName(mainFlightInfo['Departure']['AirportCode'], map)
             let toAirport = await convertCodeToAirportName(mainFlightInfo['Arrival']['AirportCode'], map)
 
+            console.log('now we are here!')
             fromPlace.textContent = fromAirport['Airport Name']
             toPlace.textContent = toAirport['Airport Name']
 
             let latLngCoords = [
-                [fromAirport['Latitude'], toAirport['Longitude']],
+                [fromAirport['Latitude'], fromAirport['Longitude']],
                 [toAirport['Latitude'], toAirport['Longitude']]
             ]
 
             let polyline = L.polyline(latLngCoords, {color: 'red'}).addTo(map)
-            map.fitBounds(polyline.fitBounds())
+            map.fitBounds(polyline.getBounds())
 
             fromPlace.classList.add('airports')
             toPlace.classList.add('airports')
@@ -338,7 +343,7 @@ sidebarButton.addEventListener('click', (e) => {
 })
 
 let map = setUpMap()
-updateFlightBox()
+updateFlightBox(map)
 
 
 
