@@ -157,6 +157,15 @@
     min-width: 1000px;
 }
 
+#from-header, #to-header {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.info {
+    font-size: calc(var(--font-size) * 0.4);
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    margin: 10px;
+}
 
 #progress-header {
     font-size: calc(var(--font-size) * 0.3);
@@ -190,10 +199,6 @@ h5 {
 p {
     font-size: calc(var(--font-size) * 0.2);
     font-family: var(--font-family);
-}
-
-.chosen-flight-header > p {
-    font-size: calc(var(--font-size) * 0.3)
 }
 
 #note {

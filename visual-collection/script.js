@@ -12,6 +12,7 @@ let codeImageDict = {
 }
 
 let inactiveList = []
+let layerGroup = L.layerGroup()
 
 
 // Utility function to reverse lookup a dictionary
@@ -48,7 +49,6 @@ async function convertCodeToAirportName(flightCode, map) {
         if(row['IATA Code'] === flightCode) {
             console.log('a match!')
             console.log([row['Latitude'], row['Longitude']])
-            L.marker([row['Latitude'], row['Longitude']]).addTo(map)
 
             return {
                 'Airport Name': row['Airport Name'],
@@ -256,8 +256,25 @@ async function fetchFlightStatus(flightCode, flightCodeBox, flightDate, map) {
                 [toAirport['Latitude'], toAirport['Longitude']]
             ]
 
-            let polyline = L.polyline(latLngCoords, {color: 'red'}).addTo(map)
-            map.fitBounds(polyline.getBounds())
+            layerGroup.clearLayers()
+
+            var fromMarker = L.marker([fromAirport['Latitude'], fromAirport['Longitude']])
+            var toMarker = L.marker([toAirport['Latitude'], toAirport['Longitude']])
+            // let polyline = L.polyline(latLngCoords, {color: 'red'}).addTo(map)
+
+            const arc = new L.Polyline.Arc(latLngCoords[0], latLngCoords[1], {
+                color: 'blue',
+                weight: 3,
+                vertices: 100  // smoother curve with more points
+            })
+
+            layerGroup.addLayer(fromMarker)
+            layerGroup.addLayer(toMarker)
+            layerGroup.addLayer(arc)
+
+            layerGroup.addTo(map)
+
+            map.fitBounds(arc.getBounds())
 
             fromPlace.classList.add('airports')
             toPlace.classList.add('airports')
@@ -312,8 +329,11 @@ async function fetchFlightStatus(flightCode, flightCodeBox, flightDate, map) {
                 console.log(minTaken)
                 console.log(hoursTaken)
 
+                let displayHours = Math.abs(Math.floor(hoursTaken))
+                let displayMin = Math.abs(Math.floor(minTaken))
                 progressBar.value = "100"
-                flightTime.textContent = `${Math.floor(hoursTaken)} HOURS, ${Math.floor(minTaken)} MINUTES`
+
+                flightTime.textContent = `${displayHours} HOURS, ${displayMin} MINUTES`
                 flightRemaining.textContent = `0 HOURS 0 MINUTES`
             }
 
@@ -352,6 +372,7 @@ sidebarButton.addEventListener('click', (e) => {
 window.addEventListener('beforeunload', (event) => {
     console.log("Remove these codes in future installments")
     console.log(inactiveList)
+    alert(`Remove these codes: ${inactiveList}`)
 })
 
 

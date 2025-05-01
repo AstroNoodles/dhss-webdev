@@ -12,6 +12,7 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
     crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet-arc"></script>
     <script src="script.js" async ></script>
 </head>
 
@@ -75,23 +76,23 @@
             <div class="grid-info">
                 <h4 id="from-header">PHL</h4>
                 <h4 id="to-header">FRA</h4>
-                <p id="from-place"><em>Philadelphia, PA</em></p>
-                <p id="to-place"><em>Frankfurt Am Main, Germany</em></p>
-                <p>Left <strong id="from-terminal">Terminal A</strong></p>
-                <p>Arriving <strong id="to-terminal">Terminal A</strong></p>
-                <p id="from-date">06-Apr-2025</p>
-                <p id="to-date">07-Apr-2025</p>
-                <p id="from-time"><strong>5:54 PM ET</strong></p>
-                <p id="to-time"><strong>6:23 PM CET</strong></p>
-                <p>Departed <strong id="from-status">ONTIME</strong></p>
-                <p>Arrived <strong id="to-status">20 MINUTES EARLY</strong></p>
+                <p id="from-place" class="info"><em>Philadelphia, PA</em></p>
+                <p id="to-place" class="info"><em>Frankfurt Am Main, Germany</em></p>
+                <p class="info">Left <strong id="from-terminal">Terminal A</strong></p>
+                <p class="info">Arriving <strong id="to-terminal">Terminal A</strong></p>
+                <p id="from-date" class="info">06-Apr-2025</p>
+                <p id="to-date" class="info">07-Apr-2025</p>
+                <p id="from-time" class="info"><strong>5:54 PM ET</strong></p>
+                <p id="to-time" class="info"><strong>6:23 PM CET</strong></p>
+                <p class="info">Departed <strong id="from-status">ONTIME</strong></p>
+                <p class="info">Arrived <strong id="to-status">20 MINUTES EARLY</strong></p>
             </div>
             <div class="progress-meter">
-                <label for="flight-progress"><p id="progress-header">Flight Progress</p></label>
+                <label for="flight-progress"><p id="progress-header" class="info">Flight Progress</p></label>
                 <progress id="flight-progress" max="100" value="40">40%</progress>
                 <div class="progress-info">
-                    <p>Flight Time: <span id="flight-time">7 HOURS 43 MINUTES</span></p>
-                    <p>Time Remaining: <span id="flight-remaining">2 HOURS 10 MINUTES</span></p>
+                    <p class="info">Flight Time: <span id="flight-time">7 HOURS 43 MINUTES</span></p>
+                    <p class="info">Time Remaining: <span id="flight-remaining">2 HOURS 10 MINUTES</span></p>
                 </div>
 
                 <div id="map" class="airline-logo"></div>
