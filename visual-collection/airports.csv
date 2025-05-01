@@ -1,100 +1,113 @@
-IATA Code,Airport Name,Latitude,Longitude
-LHR,Heathrow Airport,51.4700,-0.4543
-IST,Istanbul Airport,41.2753,28.7519
-CDG,Charles de Gaulle Airport,49.0097,2.5479
-AMS,Amsterdam Airport Schiphol,52.3105,4.7683
-MAD,Adolfo Suárez Madrid–Barajas Airport,40.4983,-3.5700
-FRA,Frankfurt am Main Airport,50.0379,8.5622
-BCN,Josep Tarradellas Barcelona–El Prat Airport,41.2974,2.0833
-LGW,Gatwick Airport,51.1481,-0.1903
-FCO,Leonardo da Vinci–Fiumicino Airport,41.8003,12.2389
-MUC,Munich Airport,48.3538,11.7861
-SVO,Sheremetyevo International Airport,55.9726,37.4146
-LIS,Lisbon Airport,38.7742,-9.1349
-DUB,Dublin Airport,53.4213,-6.2701
-ORY,Paris Orly Airport,48.7264,2.3792
-PMI,Palma de Mallorca Airport,39.5510,2.7380
-VIE,Vienna International Airport,48.1402,16.1947
-ZRH,Zurich Airport,47.4647,8.5492
-ATH,Eleftherios Venizelos Airport,37.9364,23.9442
-MAN,Manchester Airport,53.3650,-2.2722
-STN,London Stansted Airport,51.8892,0.2350
-CPH,Copenhagen Airport,55.6180,12.6560
-MXP,Milan–Malpensa Airport,45.6300,8.7281
-OSL,Oslo Gardermoen Airport,60.1939,11.1004
-BER,Berlin Brandenburg Airport,52.3667,13.5033
-AGP,Málaga Airport,36.6749,-4.4997
-BRU,Brussels Airport,50.9014,4.4844
-DUS,Düsseldorf International Airport,51.2893,6.7668
-VKO,Vnukovo International Airport,55.5910,37.2619
-GVA,Geneva Airport,46.2381,6.1083
-LED,Pulkovo Airport,59.8000,30.2600
-ESB,Esenboğa International Airport,40.1283,32.9950
-LTN,London Luton Airport,51.8747,-0.3683
-WAW,Warsaw Chopin Airport,52.1654,20.9671
-PRG,Václav Havel Airport Prague,50.1008,14.2600
-ALC,Alicante International Airport,38.2825,-0.5586
-EDI,Edinburgh Airport,55.9500,-3.3725
-NCE,Nice-Côte d'Azur Airport,43.6656,7.2158
-BUD,Budapest Ferenc Liszt International Airport,47.4360,19.2610
-LPA,Gran Canaria Airport,27.9319,-15.3869
-BHX,Birmingham Airport,52.4520,-1.7480
-SXF,Berlin Schönefeld Airport,52.3794,13.5222
-ADB,Adnan Menderes International Airport,38.2922,27.1492
-OTP,Bucharest Henri Coandă International Airport,44.5714,26.0858
-CGN,Cologne Bonn Airport,50.8650,7.1428
-BGY,Orio al Serio International Airport,45.6731,9.7053
-TFS,Tenerife South Airport,28.0444,-16.5725
-STR,Stuttgart Airport,48.6892,9.2210
-OPO,Francisco de Sá Carneiro Airport,41.2481,-8.6811
-KBP,Boryspil International Airport,50.3450,30.8944
-VCE,Venice Marco Polo Airport,45.5056,12.3519
-CTA,Catania-Fontanarossa Airport,37.4667,15.0619
-MRS,Marseille Provence Airport,43.4397,5.2219
-FAO,Faro Airport,37.0144,-7.9653
-KEF,Keflavík International Airport,63.9850,-22.6056
-BLQ,Bologna Guglielmo Marconi Airport,44.5356,11.2886
-NAP,Naples International Airport,40.8869,14.2900
-BRS,Bristol Airport,51.3825,-2.7197
-IBZ,Ibiza Airport,38.8722,1.3736
-BSL,EuroAirport Basel-Mulhouse-Freiburg Airport,47.5986,7.5297
-CRL,Brussels South Charleroi Airport,50.4597,4.4533
-LYS,Lyon–Saint-Exupéry Airport,45.7250,5.2167
-BLQ,Bologna Guglielmo Marconi Airport,44.5356,11.2886
-VCE,Venice Marco Polo Airport,45.5056,12.3519
-CTA,Catania-Fontanarossa Airport,37.4667,15.0619
-MRS,Marseille Provence Airport,43.4397,5.2219
-FAO,Faro Airport,37.0144,-7.9653
-KEF,Keflavík International Airport,63.9850,-22.6056
-BLQ,Bologna Guglielmo Marconi Airport,44.5356,11.2886
-NAP,Naples International Airport,40.8869,14.2900
-BRS,Bristol Airport,51.3825,-2.7197
-IBZ,Ibiza Airport,38.8722,1.3736
-BSL,EuroAirport Basel-Mulhouse-Freiburg Airport,47.5986,7.5297
-CRL,Brussels South Charleroi Airport,50.4597,4.4533
-LYS,Lyon–Saint-Exupéry Airport,45.7250,5.2167
-ATL,Hartsfield-Jackson Atlanta International Airport,33.6407,-84.4279
-LAX,Los Angeles International Airport,33.9416,-118.4085
-DFW,Dallas/Fort Worth International Airport,32.8998,-97.0403
-DEN,Denver International Airport,39.8561,-104.6737
-ORD,O'Hare International Airport,41.9742,-87.9073
-JFK,John F. Kennedy International Airport,40.6413,-73.7781
-MIA,Miami International Airport,25.7959,-80.2870
-EWR,Newark Liberty International Airport,40.6895,-74.1745
-SFO,San Francisco International Airport,37.7749,-122.4194
-IAH,George Bush Intercontinental Airport,29.9902,-95.3368
-DFW,Dallas/Fort Worth International Airport,32.8998,-97.0403
-SEA,Seattle-Tacoma International Airport,47.4502,-122.3088
-CLT,Charlotte Douglas International Airport,35.2140,-80.9431
-PHL,Philadelphia International Airport,39.8719,-75.2411
-MCO,Orlando International Airport,28.4219,-81.3081
-BOS,Logan International Airport,42.3656,-71.0096
-FLL,Fort Lauderdale-Hollywood International Airport,26.0726,-80.1527
-PHX,Phoenix Sky Harbor International Airport,33.4342,-112.0116
-DTW,Detroit Metropolitan Wayne County Airport,42.2124,-83.3534
-MSP,Minneapolis-Saint Paul International Airport,44.8849,-93.2223
-YYZ,Toronto Pearson International Airport,43.6777,-79.6248
-YVR,Vancouver International Airport,49.1947,-123.1837
-YUL,Montréal–Trudeau International Airport,45.4706,-73.7407
-YYC,Calgary International Airport,51.1300,-114.0111
-YEG,Edmonton International Airport,53.3097,-113.5806
+IATA Code,Airport Name,Country,Latitude,Longitude
+LHR,Heathrow Airport,United Kingdom,51.4700,-0.4543
+IST,Istanbul Airport,Turkey,41.2753,28.7519
+CDG,Charles de Gaulle Airport,France,49.0097,2.5479
+AMS,Amsterdam Airport Schiphol,Netherlands,52.3105,4.7683
+MAD,Adolfo Suárez Madrid–Barajas Airport,Spain,40.4983,-3.5700
+FRA,Frankfurt am Main Airport,Germany,50.0379,8.5622
+BCN,Josep Tarradellas Barcelona–El Prat Airport,Spain,41.2974,2.0833
+LGW,Gatwick Airport,United Kingdom,51.1481,-0.1903
+FCO,Leonardo da Vinci–Fiumicino Airport,Italy,41.8003,12.2389
+MUC,Munich Airport,Germany,48.3538,11.7861
+SVO,Sheremetyevo International Airport,Russia,55.9726,37.4146
+LIS,Lisbon Airport,Portugal,38.7742,-9.1349
+DUB,Dublin Airport,Ireland,53.4213,-6.2701
+ORY,Paris Orly Airport,France,48.7264,2.3792
+PMI,Palma de Mallorca Airport,Spain,39.5510,2.7380
+VIE,Vienna International Airport,Austria,48.1402,16.1947
+ZRH,Zurich Airport,Switzerland,47.4647,8.5492
+ATH,Eleftherios Venizelos Airport,Greece,37.9364,23.9442
+MAN,Manchester Airport,United Kingdom,53.3650,-2.2722
+STN,London Stansted Airport,United Kingdom,51.8892,0.2350
+CPH,Copenhagen Airport,Denmark,55.6180,12.6560
+MXP,Milan–Malpensa Airport,Italy,45.6300,8.7281
+OSL,Oslo Gardermoen Airport,Norway,60.1939,11.1004
+BER,Berlin Brandenburg Airport,Germany,52.3667,13.5033
+AGP,Málaga Airport,Spain,36.6749,-4.4997
+BRU,Brussels Airport,Belgium,50.9014,4.4844
+DUS,Düsseldorf International Airport,Germany,51.2893,6.7668
+VKO,Vnukovo International Airport,Russia,55.5910,37.2619
+GVA,Geneva Airport,Switzerland,46.2381,6.1083
+LED,Pulkovo Airport,Russia,59.8000,30.2600
+ESB,Esenboğa International Airport,Turkey,40.1283,32.9950
+LTN,London Luton Airport,United Kingdom,51.8747,-0.3683
+WAW,Warsaw Chopin Airport,Poland,52.1654,20.9671
+PRG,Václav Havel Airport Prague,Czech Republic,50.1008,14.2600
+ALC,Alicante International Airport,Spain,38.2825,-0.5586
+EDI,Edinburgh Airport,United Kingdom,55.9500,-3.3725
+NCE,Nice-Côte d'Azur Airport,France,43.6656,7.2158
+BUD,Budapest Ferenc Liszt International Airport,Hungary,47.4360,19.2610
+LPA,Gran Canaria Airport,Spain,27.9319,-15.3869
+BHX,Birmingham Airport,United Kingdom,52.4520,-1.7480
+SXF,Berlin Schönefeld Airport,Germany,52.3794,13.5222
+ADB,Adnan Menderes International Airport,Turkey,38.2922,27.1492
+OTP,Bucharest Henri Coandă International Airport,Romania,44.5714,26.0858
+CGN,Cologne Bonn Airport,Germany,50.8650,7.1428
+BGY,Orio al Serio International Airport,Italy,45.6731,9.7053
+TFS,Tenerife South Airport,Spain,28.0444,-16.5725
+STR,Stuttgart Airport,Germany,48.6892,9.2210
+OPO,Francisco de Sá Carneiro Airport,Portugal,41.2481,-8.6811
+KBP,Boryspil International Airport,Ukraine,50.3450,30.8944
+VCE,Venice Marco Polo Airport,Italy,45.5056,12.3519
+CTA,Catania-Fontanarossa Airport,Italy,37.4667,15.0619
+MRS,Marseille Provence Airport,France,43.4397,5.2219
+FAO,Faro Airport,Portugal,37.0144,-7.9653
+KEF,Keflavík International Airport,Iceland,63.9850,-22.6056
+BLQ,Bologna Guglielmo Marconi Airport,Italy,44.5356,11.2886
+NAP,Naples International Airport,Italy,40.8869,14.2900
+BRS,Bristol Airport,United Kingdom,51.3825,-2.7197
+IBZ,Ibiza Airport,Spain,38.8722,1.3736
+BSL,EuroAirport Basel-Mulhouse-Freiburg Airport,France,47.5986,7.5297
+CRL,Brussels South Charleroi Airport,Belgium,50.4597,4.4533
+LYS,Lyon–Saint-Exupéry Airport,France,45.7250,5.2167
+GYD,Heydar Aliyev International Airport,Azerbaijan,40.4706,50.0511
+EVN,Zvartnots International Airport,Armenia,40.1473,44.3959
+KSC,Košice International Airport,Slovakia,48.6631,21.2411
+GRZ,Graz Airport,Austria,46.9911,15.4392
+HAM,Hamburg Airport,Germany,53.6297,9.9919
+LJU,Ljubljana Jože Pučnik Airport,Slovenia,46.2231,14.4614
+SKP,Skopje Alexander the Great Airport,North Macedonia,41.9611,21.6269
+IAS,Iași International Airport,Romania,47.1785,27.6206
+TBS,Tbilisi International Airport,Georgia,41.6692,44.9544
+NRT,Narita International Airport,Japan,35.7719,140.3875
+INN,Innsbruck Airport,Austria,47.2602,11.3439
+TUN,Tunis–Carthage International Airport,Tunisia,36.8497,10.2317
+GDN,Gdańsk Lech Wałęsa Airport,Poland,54.3776,18.4662
+GWT,Sylt Airport,Germany,54.9133,8.3405
+PRN,Pristina International Airport,Republic of Kosovo,42.5728,21.0358
+TRN,Turin Airport,Italy,45.2008,7.6496
+DEB,Debrecen International Airport,Hungary,47.4889,21.6153
+BKK,Suvarnabhumi Airport,Thailand,13.6900,100.7501
+RAK,Marrakesh Menara Airport,Morocco,31.6069,-8.0363
+PAD,Paderborn Lippstadt Airport,Germany,51.6141,8.6163
+SBZ,Sibiu International Airport,Romania,45.7856,24.0913
+HEL,Helsinki-Vantaa Airport,Finland,60.3172,24.9633
+WRO,Copernicus Airport Wrocław,Poland,51.1027,16.8858
+BLL,Billund Airport,Denmark,55.7403,9.1518
+PSA,Pisa International Airport,Italy,43.6839,10.3927
+SJJ,Sarajevo International Airport,Bosnia and Herzegovina,43.8246,18.3315
+ATL,Hartsfield-Jackson Atlanta International Airport,United States,33.6407,-84.4279
+LAX,Los Angeles International Airport,United States,33.9416,-118.4085
+DFW,Dallas/Fort Worth International Airport,United States,32.8998,-97.0403
+DEN,Denver International Airport,United States,39.8561,-104.6737
+ORD,O'Hare International Airport,United States,41.9742,-87.9073
+JFK,John F. Kennedy International Airport,United States,40.6413,-73.7781
+TPA,Tampa International Airport,United States,27.9755,-82.5332
+MIA,Miami International Airport,United States,25.7959,-80.2870
+EWR,Newark Liberty International Airport,United States,40.6895,-74.1745
+SFO,San Francisco International Airport,United States,37.7749,-122.4194
+IAH,George Bush Intercontinental Airport,United States,29.9902,-95.3368
+SEA,Seattle-Tacoma International Airport,United States,47.4502,-122.3088
+CLT,Charlotte Douglas International Airport,United States,35.2140,-80.9431
+PHL,Philadelphia International Airport,United States,39.8719,-75.2411
+MCO,Orlando International Airport,United States,28.4219,-81.3081
+BOS,Logan International Airport,United States,42.3656,-71.0096
+FLL,Fort Lauderdale-Hollywood International Airport,United States,26.0726,-80.1527
+PHX,Phoenix Sky Harbor International Airport,United States,33.4342,-112.0116
+DTW,Detroit Metropolitan Wayne County Airport,United States,42.2124,-83.3534
+MSP,Minneapolis-Saint Paul International Airport,United States,44.8849,-93.2223
+YYZ,Toronto Pearson International Airport,Canada,43.6777,-79.6248
+YVR,Vancouver International Airport,Canada,49.1947,-123.1837
+YUL,Montréal–Trudeau International Airport,Canada,45.4706,-73.7407
+YYC,Calgary International Airport,Canada,51.1300,-114.0111
+YEG,Edmonton International Airport,Canada,53.3097,-113.5806

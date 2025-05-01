@@ -192,6 +192,10 @@ p {
     font-family: var(--font-family);
 }
 
+.chosen-flight-header > p {
+    font-size: calc(var(--font-size) * 0.3)
+}
+
 #note {
     font-style: oblique;
 }

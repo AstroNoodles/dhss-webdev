@@ -11,6 +11,8 @@ let codeImageDict = {
     'EW': 'airline-logos/eurowings.png'
 }
 
+let inactiveList = []
+
 
 // Utility function to reverse lookup a dictionary
 function reverseLookup(obj, value) {
@@ -186,6 +188,8 @@ async function fetchFlightStatus(flightCode, flightCodeBox, flightDate, map) {
             flightTime.textContent = `INFINITY HOURS INFINITY MINUTES`
             flightRemaining.textContent = `INFINITY HOURS INFINITY MINUTES`
 
+            inactiveList.push(flightCode)
+
         } else {
             let flightInfo = await response.json()
             console.log(flightInfo)
@@ -331,6 +335,9 @@ console.log(sidebarButton)
 console.log(sidebar)
 console.log(buttonIcon)
 
+let map = setUpMap()
+updateFlightBox(map)
+
 sidebarButton.addEventListener('click', (e) => {
     let prevDisplayStyle = sidebar.style.display;
     if (prevDisplayStyle === 'none') {
@@ -342,8 +349,12 @@ sidebarButton.addEventListener('click', (e) => {
     }
 })
 
-let map = setUpMap()
-updateFlightBox(map)
+window.addEventListener('beforeunload', (event) => {
+    console.log("Remove these codes in future installments")
+    console.log(inactiveList)
+})
+
+
 
 
 
