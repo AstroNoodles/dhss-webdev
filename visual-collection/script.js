@@ -129,7 +129,7 @@ async function fetchFlightStatus(flightCode, flightCodeBox, flightDate, map) {
     const options = {
         method: 'GET',
         headers: {
-            Authorization: 'Bearer uxgnnb25wsu9v8chss6qdqm8',
+            Authorization: 'Bearer vdav7ayft5wxzxeg9azurabn',
             'X-RapidAPI-Key': '3797d19498msh35809fc55e6fb25p1cc76ejsnbdcd51c7e0eb',
             'X-RapidAPI-Host': 'customer-flight-info.iata.rapidapi.com'
           }
