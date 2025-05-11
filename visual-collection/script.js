@@ -1,16 +1,16 @@
 // Michael Batavia - JS Code for Flight API Query
 
 let codeImageDict = {
-    'LH': 'airline-logos/lufthansa.png',
-    'EN': 'airline-logos/airdolomiti.png',
-    'VL': 'airline-logos/lufthansa-city.png',
-    'LX': 'airline-logos/swiss.png',
-    'AZ': 'airline-logos/ita.png',
-    'SN': 'airline-logos/brussels.png',
-    '4Y': 'airline-logos/discover.png',
-    'OS': 'airline-logos/austrian.png',
-    'WK': 'airline-logos/edelweiss.png',
-    'EW': 'airline-logos/eurowings.png'
+    'LH': {'image': 'airline-logos/lufthansa.png', name: 'Lufthansa'},
+    'EN': {'image': 'airline-logos/airdolomiti.png', name: 'Air Dolomiti'},
+    'VL': {'image': 'airline-logos/lufthansa-city.png', name: 'Lufthansa City Airlines'},
+    'LX': {'image': 'airline-logos/swiss.png', name: 'Swiss'},
+    'AZ': {'image': 'airline-logos/ita.png', name: 'ITA Airways'},
+    'SN': {'image': 'airline-logos/brussels.png', name: 'Brussels Airlines'},
+    '4Y': {'image': 'airline-logos/discover.png', name: 'Discover Airlines'},
+    'OS': {'image': 'airline-logos/austrian.png', name: 'Austrian Airlines'},
+    'WK': {'image': 'airline-logos/edelweiss.png', name: 'Edelweiss Air'},
+    'EW': {'image': 'airline-logos/eurowings.png', name: 'Eurowings'}
 }
 
 let inactiveList = []
@@ -69,6 +69,8 @@ async function convertCodeToAirportName(flightCode, map) {
 
 async function updateFlightBox(map) {
     let flightBox = document.querySelector(".codelist")
+    let filterBar = document.querySelector('.filter-container')
+    let flightsFoundSpan = document.querySelector('#total-number')
     const flightsURL = 'https://raw.githubusercontent.com/AstroNoodles/dhss-webdev/refs/heads/main/visual-collection/interesting_flights.txt'
     try {
         const response = await fetch(flightsURL)
@@ -77,15 +79,18 @@ async function updateFlightBox(map) {
         } else {
             // do stuff
             let flights = await response.text()
-            console.log(flights)
+            //console.log(flights)
 
             let cleanedFlightsArr = flights.split("\n")
-            console.log(cleanedFlightsArr)
+            let uniqueFlightCodeSet = new Set()
+            //console.log(cleanedFlightsArr)
 
             cleanedFlightsArr.forEach((flightCode) => {
                 let cleanedFlightCode = flightCode.substring(0, 6).replace(" ", "")
                 let airlineCode = flightCode.substring(0, 2)
-                console.log(airlineCode)
+                //console.log(cleanedFlightCode)
+
+                uniqueFlightCodeSet.add(airlineCode)
 
                 if (Object.keys(codeImageDict).includes(airlineCode)) {
                     let flightCodeBox = document.createElement('div')
@@ -108,10 +113,61 @@ async function updateFlightBox(map) {
                         fetchFlightStatus(cleanedFlightCode, flightCodeBox, isoFormatter.format(prevDate), map)
                     })
 
+
+                    // Add flight to the codebox
                     flightCodeBox.appendChild(flightCodeText)
                     flightBox.appendChild(flightCodeBox)
                 }
             })
+
+            let allNodes = Array.from(flightBox.childNodes)
+            flightsFoundSpan.textContent = allNodes.length
+
+            // Based on flight codes found, add a new filter methodology
+            uniqueFlightCodeSet.forEach((uniqueFlightCode) => {
+                let airlineFilterContainer = document.createElement('div')
+                let airlineFilterBox = document.createElement('input')
+                let airlineFilterLabel = document.createElement('label')
+
+                airlineFilterBox.type = 'checkbox'
+                airlineFilterBox.name = uniqueFlightCode
+
+                airlineFilterBox.addEventListener("change", (e) => {
+                 if(!airlineFilterBox.checked) {
+                    flightsFoundSpan.textContent = allNodes.length
+                    flightBox.replaceChildren(...allNodes)
+                 } else {  
+                    const filteredElements = Array.from(flightBox.childNodes).filter(flightDiv => {
+                        const flightText = flightDiv.childNodes[0]
+                        if(flightText) return flightText.textContent.substring(0, 2) === uniqueFlightCode
+                    })
+                    console.log(filteredElements)
+                    flightsFoundSpan.textContent = filteredElements.length
+                    flightBox.replaceChildren(...filteredElements)
+                }
+                })
+
+                airlineFilterLabel.htmlFor = uniqueFlightCode
+                //console.log(`Airline Filter By: ${uniqueFlightCode}`)
+                airlineFilterLabel.textContent = codeImageDict[uniqueFlightCode] ? 
+                            codeImageDict[uniqueFlightCode]['name'] : `Airilne ${uniqueFlightCode}`
+
+                if(Object.keys(codeImageDict).includes(uniqueFlightCode)) {
+                    airlineFilterLabel.classList.add('info')
+
+                    // for future implementations, this will not be restricted to Lufthansa Group API
+                    airlineFilterContainer.appendChild(airlineFilterBox)
+                    airlineFilterContainer.appendChild(airlineFilterLabel)
+                    filterBar.appendChild(airlineFilterContainer)
+                }
+
+                // STATISTICS ABOUT AIRLINES IN DECK
+
+                
+            })
+
+            // TOTAL STATS
+            console.log(uniqueFlightCodeSet)
         }
     } catch (error) {
         console.error(error)
@@ -129,10 +185,10 @@ async function fetchFlightStatus(flightCode, flightCodeBox, flightDate, map) {
     const options = {
         method: 'GET',
         headers: {
-            Authorization: 'Bearer vdav7ayft5wxzxeg9azurabn',
+            Authorization: 'Bearer g2kgpbdp568frzsspyemvga2',
             'X-RapidAPI-Key': '3797d19498msh35809fc55e6fb25p1cc76ejsnbdcd51c7e0eb',
             'X-RapidAPI-Host': 'customer-flight-info.iata.rapidapi.com'
-          }
+  }
         }  
 
     try {
@@ -159,7 +215,14 @@ async function fetchFlightStatus(flightCode, flightCodeBox, flightDate, map) {
         let flightRemaining = document.getElementById('flight-remaining')
 
         if (!response.ok) {
-            console.log(new Error(`Response status: ${response.status}, ${response.statusText}`))
+            console.error(`An ERROR was thrown with code ${response.status}: ${response.statusText.toUpperCase()}`)
+            
+            if(response.statusText === 'Unauthorized') {
+                console.info('Please refresh the authorization token on the Lufthansa API:' + 
+                    'https://api.developer.iata.org/lufthansa-lufthansa-default/api/customer-flight-info/')
+            }
+
+
             flightCodeBox.classList.add('code-button-disabled')
             chosenFlightHeader.classList.add('error-header')
 
@@ -170,7 +233,7 @@ async function fetchFlightStatus(flightCode, flightCodeBox, flightDate, map) {
 
             // Error information
             let airlineCode = flightCode.substring(0, 2)
-            chosenFlightImage.src = codeImageDict[airlineCode]
+            chosenFlightImage.src = codeImageDict[airlineCode]['image']
             
             chosenFlightHeader.textContent = `No flight can be found for this flight code. Try again later!`
             fromCode.textContent = `XXX`
@@ -212,7 +275,7 @@ async function fetchFlightStatus(flightCode, flightCodeBox, flightDate, map) {
 
             // HEADER AND FLIGHT CARRIER INFO
             chosenFlightHeader.textContent = flightCode
-            chosenFlightImage.src = codeImageDict[airlineCode]
+            chosenFlightImage.src = codeImageDict[airlineCode]['image']
             fromCode.textContent = mainFlightInfo['Departure']['AirportCode']
             toCode.textContent = mainFlightInfo['Arrival']['AirportCode']
 
@@ -353,34 +416,30 @@ async function fetchFlightStatus(flightCode, flightCodeBox, flightDate, map) {
 
 }
 
-// MAIN functionality
-let sidebarButton = document.querySelector('#sidebar-button')
-let sidebar = document.querySelector('.sidebar');
-let buttonIcon = document.querySelector('#sidebar-btn-img');
+// FOR THE SIDEBAR BUTTON
+function openNav() {
+    let sidebar = document.querySelector('.sidebar')
+    let sidebarButtonIcon = document.querySelector('#sidebar-btn-img')
+    let collective = document.querySelector('#main-content')
 
-console.log(sidebarButton)
-console.log(sidebar)
-console.log(buttonIcon)
+    sidebarButtonIcon.src = 'double-arrow-right.png'
+    sidebar.style.minWidth = "20vw"
+    collective.style.marginLeft = "600px"
+}
+
+function closeNav() {
+    let sidebar = document.querySelector('.sidebar')
+    let sidebarButtonIcon = document.querySelector('#sidebar-btn-img')
+    let collective = document.querySelector('#main-content')
+
+    sidebarButtonIcon.src = 'double-arrow-down.png'
+    sidebar.style.minWidth = "0"
+    collective.style.marginLeft = "0"
+}
+
 
 let map = setUpMap()
 updateFlightBox(map)
-
-sidebarButton.addEventListener('click', (e) => {
-    let prevDisplayStyle = sidebar.style.display;
-    if (prevDisplayStyle === 'none') {
-        sidebar.style.display = 'block';
-        buttonIcon.src = 'double-arrow-down.png'
-    } else {
-        sidebar.style.display = 'none';
-        buttonIcon.src = 'double-arrow-right.png'
-    }
-})
-
-window.addEventListener('beforeunload', (event) => {
-    console.log("Remove these codes in future installments")
-    console.log(inactiveList)
-    alert(`Remove these codes: ${inactiveList}`)
-})
 
 
 

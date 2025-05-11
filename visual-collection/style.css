@@ -1,6 +1,20 @@
+/*
+ROUGH ORDER OF CSS FILE IS TO GO TOP TO BOTTOM FOR STYLING WITH ELEMENTS
+*/
+
 :root {
     --font-family: Helvetica, Arial, sans-serif;
+    --secondary-font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     --font-size: 3rem;
+}
+
+.intro-text {
+    font-size: calc(var(--font-size) * 0.25);
+    font-style: oblique;
+}
+
+#main-content {
+    transition: margin-left 0.5s;
 }
 
 .collection-flex {
@@ -8,50 +22,78 @@
     gap: 5px;
 }
 
+/* FOR THE SIDEBAR */
 .sidebar {
-    border-right-color: lightblue;
-    border-left-color: transparent;
-    border-bottom-color: transparent;
-    border-top-color: transparent;
-    padding-right: 20px; 
-    border-style: solid;
-    border-radius: 2px;
-    min-width: 20vw;
-    display: none;
-    transition: visibility 10s 2s;
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    transition: 0.5s;
+    padding-top: 60px;
+    overflow-x: hidden;
+    background-color: aliceblue
+}
+
+#sidebar-elements {
+    margin: 10px;
 }
 
 #sidebar-button {
+    border-color: gainsboro;
+    border-style: solid;
+    border-radius: 1px;
     box-shadow: inset 2px 2px 3px rgba(255, 255, 255, 0.6),
-    inset -2px -2px 3px rgba(0, 0, 0, 0.6);
+        inset -2px -2px 3px rgba(0, 0, 0, 0.6);
 }
 
 #sidebar-button:active {
     box-shadow: inset -2px -2px 3px rgba(255, 255, 255, 0.6),
-    inset 2px 2px 3px rgba(0, 0, 0, 0.6);
+        inset 2px 2px 3px rgba(0, 0, 0, 0.6);
 }
 
-.content {
+.sidebar a  {
+  padding: 5px;
+  margin-top: 5px;
+  text-decoration: none;
+  font-size: 25px;
+  font-family: var(--font-family);
+  color: black;
+  display: block;
+  border: 1px solid black;
+  transition: 0.3s;
+}
+
+.closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+}
+
+#total-number {
+    transition: 0.3s;
+}
+
+.airline-header {
+    margin-left: 5px;
+    margin-top: 7px;
+}
+
+/* THIS CONTROLS THE WIDTH OF THE FLIGHT CODE BOX (width of rectangles) */
+.codelist-window {
     min-width: 40vw;
     padding-right: 10px;
 }
 
-.info-screen {
-    border-left-color: lightblue;
-    border-right-color: transparent;
-    border-top-color: transparent;
-    border-bottom-color: transparent;
-    border-style: solid;
-    border-radius: 4px;
-    padding-left: 20px;
-    min-width: 20vw;
-}
-
+/* THIS IS THE STYLING OF THE HEIGHT OF RETANGLES */
 .codelist {
     overflow: auto;
     max-height: 80vh;
 }
 
+/* STYLING OF INDIVIDUAL RECTANGLE */
 .code-button {
     border-color: pink;
     border-style: solid;
@@ -62,9 +104,9 @@
 }
 
 .code-button:hover {
-    border-color:deeppink;
+    border-color: deeppink;
     border-radius: 2px;
-    color: blue;   
+    color: blue;
 }
 
 .code-button-selected {
@@ -79,59 +121,29 @@
     background: lightgray;
 }
 
-.airline {
-    margin-bottom: 50px;
-    margin-left: 10px;
-    margin-right: 10px;
-    border: 1px gainsboro solid;
-    padding: 10px;
-    transition: border-color 1s, box-shadow 1s;
-}
-
-.airline:hover {
-    border-radius: 5px;
-    border-color: slategray;
-    border-style: solid;
-}
-
-.airline-active {
-    box-shadow: 3px 3px 2px grey;
-}
-
+/* STYLING OF TEXT IN RECTANGLES */
 .code {
     font-weight: 600;
     font-size: calc(var(--font-size) * 0.3)
 }
 
+/* 
+FOR THE INFO SCREEN
+ */
+
+.info-screen {
+    border-left-color: lightblue;
+    border-right-color: transparent;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+    border-style: solid;
+    border-radius: 4px;
+    padding-left: 20px;
+    min-width: 20vw;
+}
+
 .airline-logo {
     border: 1px solid black;
-}
-
-.grid-info {
-    display: grid;
-    column-gap: 50px;
-    grid-template-columns: 1fr 1fr;
-}
-
-.progress-meter {
-    border: 1px plum solid;
-    min-width: fit-content;
-    padding: 15px;
-    margin-top: 10px;
-}
-
-#flight-progress {
-    margin: 5px;
-    border-radius: 2px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
-}
-
-.intro-text {
-    font-size: calc(var(--font-size) * 0.25);
-}
-
-#chosen-flight-header {
-    margin-bottom: 0px;
 }
 
 #chosen-flight-image {
@@ -141,37 +153,67 @@
     padding-right: 10px;
 }
 
-.error-header {
-    color: red;
-    font-weight: 400;
+#chosen-flight-header {
+    margin-bottom: 0px;
 }
 
-.airports {
-    color: blueviolet;
-    font-weight: 700;
-    font-style: oblique;
+/* SIZING OF THE GRID */
+.grid-info {
+    display: grid;
+    column-gap: 50px;
+    grid-template-columns: 1fr 1fr;
 }
 
-#map {
-    min-height: 800px;
-    min-width: 1000px;
-}
-
-#from-header, #to-header {
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+/* TEXT STYLING IN THE GRID */
+#from-header,
+#to-header,
+.airline-header {
+    font-family: var(--secondary-font-family)
 }
 
 .info {
     font-size: calc(var(--font-size) * 0.4);
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family: var(--secondary-font-family);
     margin: 10px;
+}
+
+#flight-progress {
+    margin: 5px;
+    border-radius: 2px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
 }
 
 #progress-header {
     font-size: calc(var(--font-size) * 0.3);
 }
 
-/* DEFAULT PROPERTIES */
+.progress-meter {
+    border: 1px plum solid;
+    min-width: fit-content;
+    padding: 15px;
+    margin-top: 10px;
+}
+
+/* JAVASCRIPT SYLING INTERACTIVITY */
+.airports {
+    color: blueviolet;
+    font-weight: 700;
+    font-style: oblique;
+}
+
+
+.error-header, #total-number {
+    color: red;
+    font-weight: 400;
+}
+
+/* FOR LEAFTLET MAP */
+#map {
+    min-height: 800px;
+    min-width: 1000px;
+}
+
+/* TEXT PROPERTIES */
 
 h1 {
     font-size: var(--font-size);
@@ -196,22 +238,7 @@ h5 {
     font-family: var(--font-family);
 }
 
-p {
-    font-size: calc(var(--font-size) * 0.2);
+p, label {
+    font-size: calc(var(--font-size) * 0.25);
     font-family: var(--font-family);
-}
-
-#note {
-    font-style: oblique;
-}
-
-.airline-header {
-    margin-left: 5px;
-    margin-top: 7px;
-}
-
-#sidebar-button {
-    border-color: gainsboro;
-    border-style: solid;
-    border-radius: 1px;
 }

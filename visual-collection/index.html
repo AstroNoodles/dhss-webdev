@@ -5,101 +5,82 @@
     <title>Your Airline Connection</title>
     <link href="style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-    crossorigin=""/>
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-    crossorigin=""></script>
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script src="https://unpkg.com/leaflet-arc"></script>
-    <script src="script.js" async ></script>
+    <script src="script.js" async></script>
 </head>
 
 <body>
-    <h1>Collection of Airlines</h1>
-    <p class="intro-text">You can peruse here some of the interesting flights I have bookmarked over the past few months. Check their
-        origin, destination, flight code as well as average flight time and status.</p>
-    <p id="note" class="intro-text">Right now, limited to Lufthansa Group airlines but will add more airlines soon!</p>
-    <button id='sidebar-button' type="button">
-        <img id = 'sidebar-btn-img' src="double-arrow-right.png" alt="Pull Sidebar Down" width="50" height="50">
-    </button>
-    <hr>
-    <div class="collection-flex">
-        <aside class="sidebar">
+    <aside class="sidebar">
+        <div id="sidebar-elements">
             <h2 class="airline-header">Airlines</h2>
             <p class="airline-header">Select which airlines to filter by</p>
-            <section class="filter-container">
-                <div class="airline">
-                    <img class="airline-filter" src="airline-logos/lufthansa.png" alt="Lufthansa" width="250" height="100">
-                </div>
-                <div class="airline">
-                    <img class="airline-filter" src="airline-logos/austrian.png" alt="Austrian" width="250" height="100">
-                </div>
-                <div class="airline">
-                    <img class="airline-filter" src="airline-logos/brussels.png" alt="Brussels Airlines" width="250" height="100">
-                </div>
-                <div class="airline">
-                    <img class="airline-filter" src="airline-logos/discover.png" alt="Discover Airlines" width="250" height="100">
-                </div>
-                <div class="airline">
-                    <img class="airline-filter" src="airline-logos/edelweiss.png" alt="Edelweiss Air" width="250" height="100">
-                </div>
-                <div class="airline">
-                    <img class="airline-filter" src="airline-logos/eurowings.png" alt="Eurowings" width="250" height="100">
-                </div>
-                <div class="airline">
-                    <img class="airline-filter" src="airline-logos/airdolomiti.png" alt="Air Dolomiti" width="250" height="100">
-                </div>
-                <div class="airline">
-                    <img class="airline-filter" src="airline-logos/swiss.png" alt="Swiss" width="250" height="100">
-                </div>
-                <div class="airline paused">
-                    <img class="airline-filter" src="airline-logos/ita.png" alt="ITA Airlines" width="250" height="100">
-                </div>
-            </section>
-        </aside>
-        <main class="content">
-            <div class="codelist">
-                <!-- <div class="code-button">
-                    <p class="code">4Y 51</p>
-                </div>
-                <div class="code-button">
-                    <p class="code">LH 2222</p> !-->
-                </div>
-        </main>
-        <article class="info-screen">
-            <div class="airline-logo">
-                <img id='chosen-flight-image' src="airline-logos/eurowings.png" alt="Airline Chosen" width="300">
-            </div>
-            <h2 id="chosen-flight-header">4Y 51</h2>
-            <div class="grid-info">
-                <h4 id="from-header">PHL</h4>
-                <h4 id="to-header">FRA</h4>
-                <p id="from-place" class="info"><em>Philadelphia, PA</em></p>
-                <p id="to-place" class="info"><em>Frankfurt Am Main, Germany</em></p>
-                <p class="info">Left <strong id="from-terminal">Terminal A</strong></p>
-                <p class="info">Arriving <strong id="to-terminal">Terminal A</strong></p>
-                <p id="from-date" class="info">06-Apr-2025</p>
-                <p id="to-date" class="info">07-Apr-2025</p>
-                <p id="from-time" class="info"><strong>5:54 PM ET</strong></p>
-                <p id="to-time" class="info"><strong>6:23 PM CET</strong></p>
-                <p class="info">Departed <strong id="from-status">ONTIME</strong></p>
-                <p class="info">Arrived <strong id="to-status">20 MINUTES EARLY</strong></p>
-            </div>
-            <div class="progress-meter">
-                <label for="flight-progress"><p id="progress-header" class="info">Flight Progress</p></label>
-                <progress id="flight-progress" max="100" value="40">40%</progress>
-                <div class="progress-info">
-                    <p class="info">Flight Time: <span id="flight-time">7 HOURS 43 MINUTES</span></p>
-                    <p class="info">Time Remaining: <span id="flight-remaining">2 HOURS 10 MINUTES</span></p>
-                </div>
+            <fieldset class="filter-container">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">x</a>
+                <!-- Automatic identification of airlines to filter the list by -->
+            </fieldset>
+        </div>
+    </aside>
 
-                <div id="map" class="airline-logo"></div>
+    <div id="main-content">
+        <h1>Collection of Airlines</h1>
+        <p class="intro-text">You can peruse here some of the interesting flights I have bookmarked over the past few
+            months. Check their
+            origin, destination, flight code as well as average flight time and status.</p>
+        <p id="note" class="intro-text">Right now, limited to Lufthansa Group airlines but will add more airlines soon!
+        </p>
+        <button id='sidebar-button' type="button" onclick="openNav()">
+            <img id='sidebar-btn-img' src="double-arrow-right.png" alt="Pull Sidebar Down" width="50" height="50">
+        </button>
+        <hr>
+        <div class="collection-flex">
+            <main class="codelist-window">
+                <h2 class="airline-header"><span id="total-number"></span> Flights Were Found</h2>
+                <div class="codelist">
+                    <!-- ACTION GOES HERE
+                    POPULATES THE WEBSITE WITH CODES FROM LIST 
+                !-->
+                </div>
+            </main>
+            <article class="info-screen">
+                <div class="airline-logo">
+                    <img id='chosen-flight-image' src="airline-logos/eurowings.png" alt="Airline Chosen" width="300">
+                </div>
+                <h2 id="chosen-flight-header">4Y 51</h2>
+                <div class="grid-info">
+                    <h4 id="from-header">PHL</h4>
+                    <h4 id="to-header">FRA</h4>
+                    <p id="from-place" class="info"><em>Philadelphia, PA</em></p>
+                    <p id="to-place" class="info"><em>Frankfurt Am Main, Germany</em></p>
+                    <p class="info">Left <strong id="from-terminal">Terminal A</strong></p>
+                    <p class="info">Arriving <strong id="to-terminal">Terminal A</strong></p>
+                    <p id="from-date" class="info">06-Apr-2025</p>
+                    <p id="to-date" class="info">07-Apr-2025</p>
+                    <p id="from-time" class="info"><strong>5:54 PM ET</strong></p>
+                    <p id="to-time" class="info"><strong>6:23 PM CET</strong></p>
+                    <p class="info">Departed <strong id="from-status">ONTIME</strong></p>
+                    <p class="info">Arrived <strong id="to-status">20 MINUTES EARLY</strong></p>
+                </div>
+                <div class="progress-meter">
+                    <label for="flight-progress">
+                        <p id="progress-header" class="info">Flight Progress</p>
+                    </label>
+                    <progress id="flight-progress" max="100" value="40">40%</progress>
+                    <div class="progress-info">
+                        <p class="info">Flight Time: <span id="flight-time">7 HOURS 43 MINUTES</span></p>
+                        <p class="info">Time Remaining: <span id="flight-remaining">2 HOURS 10 MINUTES</span></p>
+                    </div>
+
+                    <div id="map" class="airline-logo"></div>
 
                 </div>
-            </div>
+        </div>
         </article>
+    </div>
     </div>
 </body>
 
