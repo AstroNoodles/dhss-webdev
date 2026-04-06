@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Flight DB - Flight Capacity</title>
+        <link rel="stylesheet" href="{{url_for('static', filename='format.css')}}"
+    </head>
+    <body>
+        <div>
+        <h2>Flight Information</h2>
+        <div class="flight-info-card">
+            <h3 id="push">{{info_record_origin.flight_number}}</h3>
+            <ul>
+                <li>Originates From: <strong>{{info_record_origin.code_name}}</strong></li>
+                <li>City: <strong>{{info_record_origin.city}}</strong></li>
+                <li>Country: <strong>{{info_record_origin.country}}</strong></li>
+                <hr>
+                <li>Destination Of: <strong>{{info_record_destination.code_name}}</strong></li>
+                <li>City: <strong>{{info_record_destination.city}}</strong></li>
+                <li>Country: <strong>{{info_record_destination.country}}</strong></li>
+            </ul>
+        </div>
+
+        <h3>Flight Capacity Check: </h3>
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Flight Number</th>
+                        <th>Departure Date</th>
+                        <th>Current Bookings</th>
+                        <th>Capacity</th>
+                        <th>Plane Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for capacity_record in capacity_records %}
+                    <tr>
+                        <td>{{capacity_record.flight_number}}</td>
+                        <td>{{capacity_record.departure_date}}</td>
+                        <td>{{capacity_record.current_bookings}}</td>
+                        <td><strong>{{capacity_record.capacity}}</strong></td>
+                        <td>{{capacity_record.plane_type}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,36 @@
+.input-combo {
+    margin: 1px
+}
+
+#submit-button {
+    padding: 3px;
+}
+
+p, h1, h2, h3, th, td, strong, label {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+#push {
+    margin-left: 10px;
+}
+
+input {
+    margin-left: 5px;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 15px;
+}
+
+tbody > tr:hover {
+    background-color: antiquewhite;
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.flight-info-card {
+    border: 1px solid cyan;
+    border-radius: 2px;
+    margin: 5px;
+}

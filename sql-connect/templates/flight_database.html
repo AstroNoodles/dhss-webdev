@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Flight DB</title>
+        <link rel="stylesheet" href="{{url_for('static', filename='format.css')}}"
+    </head>
+
+    <body>
+        <h1>Flight Database</h1>
+        <p>Find the flights that are available to book with this application.</p>
+        <div id="inputs">
+            <form action="/update" method="post">
+                <div class="input-combo">
+                    <label for="origin-airport"><p>Origin Airport:</p></label>
+                    <input type="text" id="origin-airport" name="origin-airport">
+                </div>
+                <div class="input-combo">
+                    <label for="dest-airport"><p>Destination Airport:</p></label>
+                    <input type="text" id="dest-airport" name="dest-airport">
+                </div>
+                    
+                <div class="input-combo">
+                    <label for="date1"><p>Date 1:</p></label>
+                    <input type="date" id="date1" name="date1"><br>
+                </div>
+                
+                <div class="input-combo">
+                    <label for="date2"><p>Date 2:</p></label>
+                    <input type="date" id="date2" name="date2"></input>
+                    <input type="submit" id='submit-button' value="Submit">
+                </div>
+            </form>
+        </div>
+
+        <p>Output:</p>
+        <div>
+            <table>
+                <thead>
+                <tr>
+                    <th>Flight Number</th>
+                    <th>Origin Code</th>
+                    <th>Destination Code</th>
+                    <th>Departure Date</th>
+                    <th>Departure Time</th>
+                    <th>Duration</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for record in records %}
+                    <tr>
+                        <td><a href="{{url_for('check_capacity', id=record.flight_number)}}"target="_self">{{record.flight_number}}</a></td>
+                        <td>{{record.origin_code}}</td>
+                        <td>{{record.dest_code}}</td>
+                        <td>{{record.departure_date}}</td>
+                        <td>{{record.departure_time}}</td>
+                        <td>{{record.duration}}</td>
+                    </tr>
+                    {% endfor %}
+                    <!-- <tr>
+                        <td><a target="_blank">DL8321</a></td>
+                        <td>01/20/24</td>
+                        <td>ROC</td>
+                        <td>JFK</td>
+                        <td>09:20</td>
+                        <td>120 hours</td>
+                    </tr> -->
+                </tbody>
+            </table>
+        </div>
+        
+    </body>
+
+</html>
