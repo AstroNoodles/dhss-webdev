@@ -108,6 +108,8 @@ INSERT INTO Flight VALUES
 ('AA550', '2025-12-31', 'CRJ-200'),
 ('UA789', '2025-12-31', 'Airbus A320');
 
+INSERT INTO Flight VALUES ('AA101', '2025-12-01', 'Boeing 737')
+
 -- Passengers
 INSERT INTO Passenger VALUES
 (1, 'John Adams'),
