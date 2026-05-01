@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Snickr Login Page</title>
+    <link href="{{url_for('static', filename='workspace_style.css')}}" rel="stylesheet" />
+</head>
+
+<body>
+    <h1>Welcome to Snickr</h1>
+    <p>The place to chat with your coworkers and colleagues.</p>
+    <h2>Login Page</h2>
+    <div id="login-inputs">
+        <form action="/login" method="post">
+            <div class="input-combo">
+                <label for="username-input">
+                    <p>Username:</p>
+                </label>
+                <input type="text" id="username" name="username-input">
+            </div>
+            <div class="input-combo">
+                <label for="password-input">
+                    <p>Password:</p>
+                </label>
+                <input type="text" id="password" name="password-input">
+            </div>
+            <div class="input-combo"></div>
+            <div class="input-combo">
+                <input type="submit" class='submit-button' value="Login">
+            </div>
+        </form>
+    </div>
+
+    <div>
+        <p>If you do not have a login, please sign in <a href="signup.html" target="_blank">here</a></p>
+    </div>
+
+</body>
+
+</html>

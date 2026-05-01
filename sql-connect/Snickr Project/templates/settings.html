@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Snickr Login Page</title>
+    <link href="{{url_for('static', filename='workspace_style.css')}}" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="navbar">
+        <ul class="navbar-list">
+            <li>
+                <h1>Snickr Workspaces</h1>
+            </li>
+            <li><a href="workspace_space.html">Home</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="settings.html">Settings</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+
+        <aside class="sidebar">
+            <div class="multi-channels">
+                <h2>Channels</h2>
+                <p class="bigger"><strong>#general (1)</strong></p>
+                <p class="bigger"><strong>#homework-help (2)</strong></p>
+                <p class="bigger"><a href="unknown_channel.html">#banana (!)</a></p>
+            </div>
+            <hr>
+            <div class="multi-channels">
+                <h2>Private Messages</h2>
+                <p class="bigger">Alice M.</p>
+                <p class="bigger">Janice B.</p>
+                <p class="bigger">Mike G.</p>
+            </div>
+            <hr>
+            <div class="multi-channels">
+                <button>Create New Channel</button>
+            </div>
+        </aside>
+
+        <div class="workspace-body">
+            <h1>Workspace Settings</h1>
+            <div class="workspace-card">
+                <div class="block">
+                    <h4>Workspace Administrators</h4>
+                    <p>Select how many administrators are in your workspace</p>
+                    <form action="/addAdministrator" method="post">
+                        <div class="input-combo">
+                            <select name="users-workspace" class="add-users">
+                                <option value="user1">User 1</option>
+                                <option value="user2">User 2</option>
+                            </select>
+                            <input type="submit" class='add-button' value="Submit">
+                        </div>
+
+                    </form>
+                    <p><strong>Current Administrators:</strong></p>
+                    <ul>
+                        <li><a>User 1</a></li>
+                        <li><a>User 2</a></li>
+                        <li><a>User 3</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="workspace-card">
+                <h4>Workspace Invitations</h4>
+                <form action="/inviteToWorkspace" method="post">
+                    <div class="input-combo">
+                        <label for="username-input">
+                            <p>Invitee Email</p>
+                        </label>
+                        <input type="text" id="invitee-email" name="invitee-input">
+                    </div>
+                    <div class="input-combo">
+                        <input type="submit" class='submit-button' value="Submit Request">
+                    </div>
+                </form>
+                <p><em>Your request has been sent.</em></p>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

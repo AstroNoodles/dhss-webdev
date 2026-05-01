@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Snickr Login Page</title>
+    <link href="{{url_for('static', filename='workspace_style.css')}}" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="navbar">
+        <ul class="navbar-list">
+            <li>
+                <h1>Snickr Workspaces</h1>
+            </li>
+            <li><a href="workspace_space.html">Home</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="settings.html">Settings</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <aside class="sidebar">
+            <div class="multi-channels">
+                <h2>Channels</h2>
+                <p class="bigger"><strong>#general (1)</strong></p>
+                <p class="bigger"><strong>#homework-help (2)</strong></p>
+                <p class="bigger"><a href="unknown_channel.html">#banana (!)</a></p>
+            </div>
+            <hr>
+            <div class="multi-channels">
+                <h2>Private Messages</h2>
+                <p class="bigger">Alice M.</p>
+                <p class="bigger">Janice B.</p>
+                <p class="bigger">Mike G.</p>
+            </div>
+            <hr>
+            <div class="multi-channels">
+                <button>Create New Channel</button>
+            </div>
+        </aside>
+
+        <div class="workspace-body">
+            <h1>Your Profile</h2>
+                <div id="login-inputs">
+                    <form action="/login" method="post">
+                        <div class="input-combo">
+                            <label for="username-input">
+                                <p>Username:</p>
+                            </label>
+                            <input type="text" id="username" name="username-input" value="Username">
+                        </div>
+                        <div class="input-combo">
+                            <label for="password-input">
+                                <p>Password:</p>
+                            </label>
+                            <input type="text" id="password" name="password-input" value="Password">
+                        </div>
+                        <div class="input-combo">
+                            <label for="email-input">
+                                <p>Password:</p>
+                            </label>
+                            <input type="text" id="email" name="email-input" value="Email">
+                        </div>
+                        <div class="input-combo">
+                            <label for="nickname-input">
+                                <p>Password:</p>
+                            </label>
+                            <input type="text" id="password" name="nickname-input" value="Nickname">
+                        </div>
+                        <div class="input-combo">
+                            <input type="submit" class='submit-button' value="Update">
+                        </div>
+                    </form>
+                </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <link href="{{url_for('static', filename='workspace_style.css')}}" rel="stylesheet" />
+    <title>Banana Archive</title>
+</head>
+
+<body>
+    <div class="navbar">
+        <ul class="navbar-list">
+            <li>
+                <h1>Snickr Workspaces</h1>
+            </li>
+            <li><a href="workspace_space.html">Home</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="settings.html">Settings</a></li>
+        </ul>
+    </div>
+    <div class="main-content">
+
+        <aside class="sidebar">
+            <div class="multi-channels">
+                <h2>Channels</h2>
+                <p class="bigger"><strong>#general (1)</strong></p>
+                <p class="bigger"><strong>#homework-help (2)</strong></p>
+                <p class="bigger"><a href="unknown_channel.html">#banana (!)</a></p>
+            </div>
+            <hr>
+            <div class="multi-channels">
+                <h2>Private Messages</h2>
+                <p class="bigger">Alice M.</p>
+                <p class="bigger">Janice B.</p>
+                <p class="bigger">Mike G.</p>
+            </div>
+            <hr>
+            <div class="multi-channels">
+                <button>Create New Channel</button>
+            </div>
+        </aside>
+
+        <div class="workspace-body">
+            <h2>Channel Name</h2>
+
+            <section class="channel-messages">
+                <div class="message-card">
+                    <div class="username-time">
+                        <p>Username</p>
+                        <p>Time</p>
+                    </div>
+                    <div class="text-message">
+                        <p>Message Text</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="custom-messages">
+                <p>Post something!</p>
+                <div class="editable-message-block">
+                    <textarea id="editable-block">The Text</textarea>
+                    <button class="submit-button">Post</button>
+                </div>
+            </section>
+
+        </div>
+    </div>
+</body>
+
+</html>

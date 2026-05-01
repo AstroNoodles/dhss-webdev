@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Snickr Workspaces</title>
+    <link href="{{url_for('static', filename='workspace_style.css')}}" rel="stylesheet" />
+</head>
+
+<body>
+    <h1>Snickr Workspaces</h1>
+    <div class="workspace-card">
+        <h3>Workspace Name</h3>
+        <p>Description of the workspace</p>
+        <button>Enter Workspace</button>
+    </div>
+
+    <div class="workspace-card">
+        <h3>Workspace Name</h3>
+        <p><em>You have been invited into this workspace!</em></p>
+        <p>Description of the workspace</p>
+        <div>
+            <button>Enter Workspace</button>
+            <button>Decline Invite</button>
+        </div>
+    </div>
+
+    <div class="workspace-card">
+        <h4>Create A Workspace</h4>
+        <form action="/createWorkspace" method="post">
+            <div class="input-combo">
+                <label for="workspace-name-input">
+                    <p>Username:</p>
+                </label>
+                <input type="text" id="workspace" name="workspace-input">
+            </div>
+            <div class="input-combo">
+                <input type="submit" class='submit-button' value="Create">
+            </div>
+    </div>
+    </form>
+    </div>
+</body>
+
+</html>

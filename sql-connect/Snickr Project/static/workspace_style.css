@@ -1,0 +1,145 @@
+:root {
+  --primary-color: #ffbe00;
+  --secondary-color: #ffab00;
+  --tertiary-color: #ff11aa;
+  --primary-size: 1.5rem;
+  --secondary-size: 1rem;
+  --primary-font: Georgia, Times, serif;
+  --border-color: #D7CCC8;
+  --padding-value: 10px;
+  --sidebar-gap-width: 300px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+h1 {
+  color: var(--primary-color);
+}
+
+body {
+  font-family: var(--primary-font);
+  margin: 0;
+  flex-direction: column;
+  display: flex;
+  height: 100vh;
+}
+
+.main-content {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.sidebar {
+  flex: 0 0 250px;
+  border: 2px var(--border-color) solid;
+  padding: var(--padding-value);
+  overflow-y: auto;
+}
+
+.workspace-body {
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  padding-left: 10px;
+  display: flex;
+  height: 100vh;
+  border: 1px var(--border-color) solid;
+}
+
+.channel-messages {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.message-card {
+  border: 1px solid var(--border-color);
+  border-radius: 2px;
+}
+
+.username-time {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.custom-messages {
+  background: white;
+  border-top: 1px solid var(--border-color);
+}
+
+textarea {
+  width: 100%;
+  resize: vertical;
+}
+
+.navbar-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: bisque;
+}
+
+.navbar-list>li a,
+.navbar-list>h1 {
+  display: block;
+  color: gray;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+
+.navbar-list>li:hover {
+  background-color: peachpuff
+}
+
+.input-combo {
+  margin: 1px
+}
+
+.bigger {
+  margin-left: 20px;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+}
+
+.bigger:hover {
+  background: aliceblue;
+}
+
+.submit-button {
+  padding: 10px;
+  margin-top: 10px;
+  background: gainsboro
+}
+
+#editable-block {
+  resize: both;
+  width: 100%;
+  height: 300px;
+  font-size: 12px;
+  border: 1px solid var(--border-color);
+}
+
+.add-users {
+  width: 200px;
+}
+
+.add-button {
+  margin-left: 10px;
+}
+
+.workspace-card {
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  margin: 10px;
+}
