@@ -9,32 +9,43 @@
 <body>
     <h1>Welcome to Snickr</h1>
     <p>The place to chat with your coworkers and colleagues.</p>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash-messages">
+                    <ul>
+                    {% for msg in messages %}
+                        <li>{{ msg }}</li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        {% endwith %}
     <h2>Sign Up Here!</h2>
     <div id="signup-inputs">
-        <form action="/signup" method="post">
+    <form action="{{ url_for('auth.signup') }}" method="post">
             <div class="input-combo">
                 <label for="username-input">
                     <p>Username:</p>
                 </label>
-                <input type="text" id="username" name="username-input">
+        <input type="text" id="username" name="username">
             </div>
             <div class="input-combo">
                 <label for="password-input">
                     <p>Password:</p>
                 </label>
-                <input type="text" id="password" name="password-input">
+        <input type="password" id="password" name="password">
             </div>
             <div class="input-combo">
                 <label for="email-input">
                     <p>Email:</p>
                 </label>
-                <input type="text" id="email" name="email-input">
+        <input type="email" id="email" name="email">
             </div>
             <div class="input-combo">
                 <label for="nickname-input">
                     <p>Nickname:</p>
                 </label>
-                <input type="text" id="password" name="nickname-input">
+        <input type="text" id="nickname" name="nickname">
             </div>
             <div class="input-combo">
                 <input type="submit" class='submit-button' value="Signup">

@@ -12,9 +12,10 @@
             <li>
                 <h1>Snickr Workspaces</h1>
             </li>
-            <li><a href="workspace_space.html">Home</a></li>
-            <li><a href="profile.html">Profile</a></li>
-            <li><a href="settings.html">Settings</a></li>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+            <li><a href="{{ url_for('auth.logout') }}">Profile</a></li>
+            <li><a href="{{ url_for('auth.logout') }}">Settings</a></li>
         </ul>
     </div>
     <div class="main-content">
