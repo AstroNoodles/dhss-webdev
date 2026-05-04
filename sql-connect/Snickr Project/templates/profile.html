@@ -1,9 +1,29 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <title>Snickr Login Page</title>
-    <link href="{{url_for('static', filename='workspace_style.css')}}" rel="stylesheet" />
+    <meta charset="utf-8" />
+    <title>User Profile</title>
+    <link href="{{ url_for('static', filename='workspace_style.css') }}" rel="stylesheet" />
+    <style>
+        .field-row {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .field-row input {
+            min-width: 220px;
+        }
+
+        .edit-btn {
+            cursor: pointer;
+        }
+
+        .flash-messages {
+            margin: 1rem 0;
+        }
+    </style>
 </head>
 
 <body>
@@ -12,9 +32,9 @@
             <li>
                 <h1>Snickr Workspaces</h1>
             </li>
-            <li><a href="workspace_space.html">Home</a></li>
-            <li><a href="profile.html">Profile</a></li>
-            <li><a href="settings.html">Settings</a></li>
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="{{ url_for('auth.profile') }}">Profile</a></li>
+            <li><a href="{{ url_for('settings') }}">Settings</a></li>
         </ul>
     </div>
 
@@ -24,7 +44,7 @@
                 <h2>Channels</h2>
                 <p class="bigger"><strong>#general (1)</strong></p>
                 <p class="bigger"><strong>#homework-help (2)</strong></p>
-                <p class="bigger"><a href="unknown_channel.html">#banana (!)</a></p>
+                <p class="bigger"><a href="#">#banana (!)</a></p>
             </div>
             <hr>
             <div class="multi-channels">
@@ -35,47 +55,68 @@
             </div>
             <hr>
             <div class="multi-channels">
-                <button>Create New Channel</button>
+                <button type="button">Create New Channel</button>
             </div>
         </aside>
 
         <div class="workspace-body">
-            <h1>Your Profile</h2>
-                <div id="login-inputs">
-                    <form action="/login" method="post">
-                        <div class="input-combo">
-                            <label for="username-input">
-                                <p>Username:</p>
-                            </label>
-                            <input type="text" id="username" name="username-input" value="Username">
-                        </div>
-                        <div class="input-combo">
-                            <label for="password-input">
-                                <p>Password:</p>
-                            </label>
-                            <input type="text" id="password" name="password-input" value="Password">
-                        </div>
-                        <div class="input-combo">
-                            <label for="email-input">
-                                <p>Password:</p>
-                            </label>
-                            <input type="text" id="email" name="email-input" value="Email">
-                        </div>
-                        <div class="input-combo">
-                            <label for="nickname-input">
-                                <p>Password:</p>
-                            </label>
-                            <input type="text" id="password" name="nickname-input" value="Nickname">
-                        </div>
-                        <div class="input-combo">
-                            <input type="submit" class='submit-button' value="Update">
-                        </div>
-                    </form>
+            <h1>Profile for {{ user.username }}</h1>
+
+            {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                <div class="flash-messages">
+                  <ul>
+                  {% for msg in messages %}
+                    <li>{{ msg }}</li>
+                  {% endfor %}
+                  </ul>
                 </div>
+              {% endif %}
+            {% endwith %}
+
+            <form id="profile-form" action="{{ url_for('auth.profile_update') }}" method="post">
+                <div class="field-row">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" value="{{ user.username }}" readonly />
+                    <button type="button" class="edit-btn" data-target="username">Edit</button>
+                </div>
+
+                <div class="field-row">
+                    <label for="nickname">Nickname</label>
+                    <input type="text" id="nickname" name="nickname" value="{{ user.nickname or '' }}" readonly />
+                    <button type="button" class="edit-btn" data-target="nickname">Edit</button>
+                </div>
+
+                <div class="field-row">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" value="{{ user.email_address }}" readonly />
+                    <button type="button" class="edit-btn" data-target="email">Edit</button>
+                </div>
+
+                <div class="field-row">
+                    <label for="password">New password</label>
+                    <input type="password" id="password" name="password" placeholder="(leave blank to keep current)" readonly />
+                    <button type="button" class="edit-btn" data-target="password">Edit</button>
+                </div>
+
+                <div style="margin-top: 1rem;">
+                    <button type="submit" class="submit-button">Save Profile</button>
+                    <a href="{{ url_for('home') }}">Cancel</a>
+                </div>
+            </form>
         </div>
     </div>
 
-
+    <script>
+        document.querySelectorAll('.edit-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const target = btn.dataset.target;
+                const input = document.querySelector(`[name="${target}"]`);
+                if (!input) return;
+                input.readOnly = false;
+                input.focus();
+            });
+        });
+    </script>
 </body>
-
 </html>

@@ -7,37 +7,64 @@
 </head>
 
 <body>
-    <h1>Snickr Workspaces</h1>
-    <div class="workspace-card">
-        <h3>Workspace Name</h3>
-        <p>Description of the workspace</p>
-        <button>Enter Workspace</button>
+    <div class="navbar">
+        <ul class="navbar-list">
+            <li>
+                <h1>Snickr Workspaces</h1>
+            </li>
+            <li><a href="{{ url_for('select_workspace') }}">Switch Workspace</a></li>
+            <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+            <li><a href="{{ url_for('auth.profile') }}">Profile</a></li>
+            <li><a href="{{ url_for('settings') }}">Settings</a></li>
+        </ul>
     </div>
 
-    <div class="workspace-card">
-        <h3>Workspace Name</h3>
-        <p><em>You have been invited into this workspace!</em></p>
-        <p>Description of the workspace</p>
-        <div>
-            <button>Enter Workspace</button>
-            <button>Decline Invite</button>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="workspace-card">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    {% if workspaces and workspaces|length > 0 %}
+        {% for ws in workspaces %}
+            <div class="workspace-card">
+                <h3>{{ ws.wname }}</h3>
+                <p>{{ ws.work_desc or 'No description available.' }}</p>
+                <form action="{{ url_for('select_workspace') }}" method="post">
+                    <input type="hidden" name="workspace_id" value="{{ ws.workspace_id }}">
+                    <button type="submit">Enter Workspace</button>
+                </form>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="workspace-card">
+            <p><strong>You are not a member of any workspace.</strong></p>
         </div>
-    </div>
+    {% endif %}
 
     <div class="workspace-card">
         <h4>Create A Workspace</h4>
         <form action="/createWorkspace" method="post">
             <div class="input-combo">
-                <label for="workspace-name-input">
-                    <p>Username:</p>
+                <label for="workspace">
+                    <p>Workspace Name:</p>
                 </label>
                 <input type="text" id="workspace" name="workspace-input">
             </div>
             <div class="input-combo">
-                <input type="submit" class='submit-button' value="Create">
+                <label for="workspace-description">
+                    <p>Workspace Description:</p>
+                </label>
+                <textarea id="workspace-description" name="workspace-description"></textarea>
             </div>
-    </div>
-    </form>
+            <div class="input-combo">
+                <input type="submit" class="submit-button" value="Create">
+            </div>
+        </form>
     </div>
 </body>
 

@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <link href="{{url_for('static', filename='workspace_style.css')}}" rel="stylesheet" />
+    <title>#{{ channel.cname }} - {{ workspace.wname }}</title>
+</head>
+
+<body>
+    <div class="navbar">
+        <ul class="navbar-list">
+            <li>
+                <h1>Snickr Workspaces</h1>
+            </li>
+            <li><a href="{{ url_for('workspace_hub', workspace_id=workspace.workspace_id, slug=slug) }}">Workspace</a></li>
+            <li><a href="{{ url_for('select_workspace') }}">Switch Workspace</a></li>
+            <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+            <li><a href="{{ url_for('auth.profile') }}">Profile</a></li>
+            <li><a href="{{ url_for('settings') }}">Settings</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <aside class="sidebar">
+            <div class="multi-channels">
+                <h2>Channels</h2>
+                {% if workspace.channels and workspace.channels|length > 0 %}
+                    {% for ch in workspace.channels %}
+                        <p class="bigger {% if ch.channel_id == active_channel_id %}active-channel{% endif %}">
+                            <a href="{{ url_for('channel_view', workspace_id=workspace.workspace_id, slug=slug, channel_id=ch.channel_id, channel_slug_value=ch.cname|channel_slug) }}">
+                                <strong>#{{ ch.cname }}</strong>
+                            </a>
+                        </p>
+                    {% endfor %}
+                {% else %}
+                    <p><em>No channels in this workspace.</em></p>
+                {% endif %}
+            </div>
+            <hr>
+            <div class="multi-channels">
+                <form action="{{ url_for('create_channel', workspace_id=workspace.workspace_id, slug=slug) }}" method="get">
+                    <button type="submit">Create New Channel</button>
+                </form>
+            </div>
+        </aside>
+
+        <main class="workspace-body channel-view">
+            <header class="channel-header">
+                <h2>#{{ channel.cname }}</h2>
+                <p>{{ channel.channel_type }}</p>
+            </header>
+
+            <section class="channel-messages">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <div class="workspace-card">
+                            {% for message in messages %}
+                                <p>{{ message }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+
+                {% if channel.messages and channel.messages|length > 0 %}
+                    {% for message in channel.messages %}
+                        <article class="message-card">
+                            <div class="message-username">{{ message.username }}</div>
+                            <p class="message-text">{{ message.text }}</p>
+                            <time class="message-time">{{ message.sent_at.strftime('%b %d, %Y %I:%M %p') }}</time>
+                        </article>
+                    {% endfor %}
+                {% else %}
+                    <p><em>No messages in this channel yet.</em></p>
+                {% endif %}
+            </section>
+
+            <form class="message-composer" action="{{ url_for('channel_view', workspace_id=workspace.workspace_id, slug=slug, channel_id=channel.channel_id, channel_slug_value=channel.cname|channel_slug) }}" method="post">
+                <textarea name="message-text" rows="3" placeholder="Message #{{ channel.cname }}" required></textarea>
+                <button type="submit">Send</button>
+            </form>
+        </main>
+    </div>
+
+    <script>
+        const messages = document.querySelector('.channel-messages');
+        if (messages) {
+            messages.scrollTop = messages.scrollHeight;
+        }
+    </script>
+</body>
+
+</html>

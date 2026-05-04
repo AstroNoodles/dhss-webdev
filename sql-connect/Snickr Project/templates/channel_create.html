@@ -3,7 +3,7 @@
 
 <head>
     <link href="{{url_for('static', filename='workspace_style.css')}}" rel="stylesheet" />
-    <title>Banana Archive</title>
+    <title>Create Channel</title>
 </head>
 
 <body>
@@ -12,20 +12,29 @@
             <li>
                 <h1>Snickr Workspaces</h1>
             </li>
-            <li><a href="workspace_space.html">Home</a></li>
-            <li><a href="profile.html">Profile</a></li>
-            <li><a href="settings.html">Settings</a></li>
+            <li><a href="{{ url_for('workspace_hub', workspace_id=workspace.workspace_id, slug=slug) }}">Workspace</a></li>
+            <li><a href="{{ url_for('select_workspace') }}">Switch Workspace</a></li>
+            <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+            <li><a href="{{ url_for('auth.profile') }}">Profile</a></li>
+            <li><a href="{{ url_for('settings') }}">Settings</a></li>
         </ul>
     </div>
 
     <div class="main-content">
-
         <aside class="sidebar">
             <div class="multi-channels">
                 <h2>Channels</h2>
-                <p class="bigger">#general (1)</p>
-                <p class="bigger">#homework-help (2)</p>
-                <p class="bigger"><a href="unknown_channel.html">#banana (?)</a></p>
+                {% if workspace.channels and workspace.channels|length > 0 %}
+                    {% for ch in workspace.channels %}
+                        <p class="bigger">
+                            <a href="{{ url_for('channel_view', workspace_id=workspace.workspace_id, slug=slug, channel_id=ch.channel_id, channel_slug_value=ch.cname|channel_slug) }}">
+                                <strong>#{{ ch.cname }}</strong>
+                            </a>
+                        </p>
+                    {% endfor %}
+                {% else %}
+                    <p><em>No channels in this workspace.</em></p>
+                {% endif %}
             </div>
             <hr>
             <div class="multi-channels">
@@ -34,42 +43,42 @@
                 <p class="bigger">Janice B.</p>
                 <p class="bigger">Mike G.</p>
             </div>
-            <hr>
-            <div class="multi-channels">
-                <button>Create New Channel</button>
-            </div>
         </aside>
 
         <main class="workspace-body">
+            <h2>{{ workspace.wname }}</h2>
             <h4>Create A Channel</h4>
-            <form action="/createChannel" method="post">
+
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="workspace-card">
+                        {% for message in messages %}
+                            <p>{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            <form action="{{ url_for('create_channel', workspace_id=workspace.workspace_id, slug=slug) }}" method="post">
                 <div class="input-combo">
-                    <label for="channel-name-input">
+                    <label for="channel">
                         <p>Channel Name:</p>
                     </label>
-                    <input type="text" id="channel" name="channel-input">
+                    <input type="text" id="channel" name="channel-input" required>
                 </div>
                 <div class="input-combo">
-                    <label for="workspace-channels">
-                        <p>Select Users:</p>
+                    <label for="channel-type">
+                        <p>Channel Type:</p>
                     </label>
-                    <select name="users-channel" class="add-users">
-                        <option value="user1">User 1</option>
-                        <option value="user2">User 2</option>
+                    <select id="channel-type" name="channel-type" required>
+                        <option value="public">Public</option>
+                        <option value="private">Private</option>
                     </select>
-                    <input type="submit" class="add-button" value="Add">
                 </div>
                 <div class="input-combo">
-                    <input type="submit" class='submit-button' value="Create">
+                    <input type="submit" class="submit-button" value="Create">
                 </div>
             </form>
-            <p>Current Channel Members:</p>
-            <ul>
-                <li><a target="_blank">User 1</a></li>
-                <li><a target="_blank">User 2</a></li>
-                <li><a target="_blank">User 3</a></li>
-                <li><a target="_blank">User 4</a></li>
-            </ul>
         </main>
     </div>
 </body>

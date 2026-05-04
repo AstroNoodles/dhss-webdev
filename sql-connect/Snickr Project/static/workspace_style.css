@@ -24,11 +24,13 @@ body {
   flex-direction: column;
   display: flex;
   height: 100vh;
+  overflow: hidden;
 }
 
 .main-content {
   display: flex;
   flex: 1;
+  min-height: 0;
   width: 100%;
   flex-direction: row;
   align-items: stretch;
@@ -45,20 +47,26 @@ body {
   flex: 1;
   flex-direction: column;
   min-width: 0;
+  min-height: 0;
   padding-left: 10px;
   display: flex;
-  height: 100vh;
   border: 1px var(--border-color) solid;
 }
 
 .channel-messages {
   flex: 1;
   overflow-y: auto;
+  padding: 10px;
 }
 
 .message-card {
   border: 1px solid var(--border-color);
   border-radius: 2px;
+  margin-bottom: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .username-time {
@@ -142,4 +150,64 @@ textarea {
   padding: 10px;
   border: 1px solid var(--border-color);
   margin: 10px;
+}
+
+.bigger a {
+  color: inherit;
+  display: block;
+  padding: 4px;
+  text-decoration: none;
+}
+
+.active-channel {
+  background: aliceblue;
+}
+
+.channel-view {
+  padding-right: 10px;
+  overflow: hidden;
+}
+
+.channel-header {
+  border-bottom: 1px solid var(--border-color);
+  padding: 10px 0;
+}
+
+.channel-header h2,
+.channel-header p {
+  margin: 0 0 4px;
+}
+
+.message-username {
+  font-weight: bold;
+  align-self: flex-start;
+}
+
+.message-text {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.message-time {
+  align-self: flex-end;
+  color: gray;
+  font-size: 0.85rem;
+}
+
+.message-composer {
+  background: white;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  flex-shrink: 0;
+  gap: 10px;
+  padding: 10px 0;
+}
+
+.message-composer textarea {
+  flex: 1;
+}
+
+.message-composer button {
+  align-self: flex-end;
+  padding: 10px 16px;
 }

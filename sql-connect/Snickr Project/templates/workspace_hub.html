@@ -3,7 +3,7 @@
 
 <head>
     <link href="{{url_for('static', filename='workspace_style.css')}}" rel="stylesheet" />
-    <title>Banana Archive</title>
+    <title>{{ workspace.wname }} Hub</title>
 </head>
 
 <body>
@@ -12,10 +12,10 @@
             <li>
                 <h1>Snickr Workspaces</h1>
             </li>
-            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('select_workspace') }}">Switch Workspace</a></li>
             <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
-            <li><a href="{{ url_for('auth.logout') }}">Profile</a></li>
-            <li><a href="{{ url_for('auth.logout') }}">Settings</a></li>
+            <li><a href="{{ url_for('auth.profile') }}">Profile</a></li>
+            <li><a href="{{ url_for('settings') }}">Settings</a></li>
         </ul>
     </div>
     <div class="main-content">
@@ -23,9 +23,17 @@
         <aside class="sidebar">
             <div class="multi-channels">
                 <h2>Channels</h2>
-                <p class="bigger"><strong>#general (1)</strong></p>
-                <p class="bigger"><strong>#homework-help (2)</strong></p>
-                <p class="bigger"><a href="unknown_channel.html">#banana (!)</a></p>
+                {% if workspace.channels and workspace.channels|length > 0 %}
+                    {% for ch in workspace.channels %}
+                        <p class="bigger">
+                            <a href="{{ url_for('channel_view', workspace_id=workspace.workspace_id, slug=slug, channel_id=ch.channel_id, channel_slug_value=ch.cname|channel_slug) }}">
+                                <strong>#{{ ch.cname }}</strong>
+                            </a>
+                        </p>
+                    {% endfor %}
+                {% else %}
+                    <p><em>No channels in this workspace.</em></p>
+                {% endif %}
             </div>
             <hr>
             <div class="multi-channels">
@@ -36,32 +44,26 @@
             </div>
             <hr>
             <div class="multi-channels">
-                <button>Create New Channel</button>
+                <form action="{{ url_for('create_channel', workspace_id=workspace.workspace_id, slug=slug) }}" method="get">
+                    <button type="submit">Create New Channel</button>
+                </form>
             </div>
         </aside>
 
         <div class="workspace-body">
-            <h2>Channel Name</h2>
+            <h2>{{ workspace.wname }}</h2>
+            <p>{{ workspace.work_desc or 'No description available.' }}</p>
 
-            <section class="channel-messages">
-                <div class="message-card">
-                    <div class="username-time">
-                        <p>Username</p>
-                        <p>Time</p>
-                    </div>
-                    <div class="text-message">
-                        <p>Message Text</p>
-                    </div>
-                </div>
-            </section>
-
-            <section class="custom-messages">
-                <p>Post something!</p>
-                <div class="editable-message-block">
-                    <textarea id="editable-block">The Text</textarea>
-                    <button class="submit-button">Post</button>
-                </div>
-            </section>
+            <h3>Workspace Channels</h3>
+            {% if workspace.channels and workspace.channels|length > 0 %}
+                <ul class="channel-list">
+                {% for ch in workspace.channels %}
+                    <li>#{{ ch.cname }} <small>({{ ch.channel_type }})</small></li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <p><em>No channels in this workspace.</em></p>
+            {% endif %}
 
         </div>
     </div>

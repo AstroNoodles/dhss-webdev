@@ -8,9 +8,9 @@ auth = Blueprint('auth', __name__, template_folder='../templates', url_prefix=''
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
-        # if already logged in, send to home
+        # if already logged in, send to workspace selection
         if session.get('user_id'):
-            return redirect(url_for('index'))
+            return redirect(url_for('select_workspace'))
         return render_template('login.html')
 
     username = request.form.get('username')
@@ -40,7 +40,7 @@ def login():
     session['username'] = user['username']
     # keep session persistent for the browser session
     session.permanent = True
-    return redirect(url_for('index'))
+    return redirect(url_for('select_workspace'))
 
 
 @auth.route('/logout')
@@ -52,9 +52,9 @@ def logout():
 @auth.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == 'GET':
-        # if already logged in, send to home
+        # if already logged in, send to workspace selection
         if session.get('user_id'):
-            return redirect(url_for('index'))
+            return redirect(url_for('select_workspace'))
         return render_template('signup.html')
 
     username = request.form.get('username')
@@ -94,4 +94,67 @@ def signup():
     session['user_id'] = inserted['user_id']
     session['username'] = inserted['username']
     session.permanent = True
-    return redirect(url_for('index'))
+    return redirect(url_for('select_workspace'))
+
+
+@auth.route('/profile')
+def profile():
+    # Show profile for the logged in user
+    user_id = session.get('user_id')
+    if not user_id:
+        return redirect(url_for('auth.login'))
+
+    # fetch user details from DB
+    user = query_one('SELECT user_id, username, email_address, nickname, joined_on FROM users WHERE user_id = %s', (user_id,))
+    if not user:
+        flash('User not found')
+        return redirect(url_for('index'))
+
+    return render_template('profile.html', user=user)
+
+
+@auth.route('/profile', methods=['POST'])
+def profile_update():
+    user_id = session.get('user_id')
+    if not user_id:
+        return redirect(url_for('auth.login'))
+
+    username = request.form.get('username', '').strip()
+    email = request.form.get('email', '').strip()
+    nickname = request.form.get('nickname', '').strip() or None
+    new_password = request.form.get('password', '').strip()
+
+    if not username or not email:
+        flash('Username and email are required')
+        return redirect(url_for('auth.profile'))
+
+    # check uniqueness of username/email for other users
+    conflict = query_one(
+        'SELECT user_id FROM users WHERE (username = %s OR email_address = %s) AND user_id != %s',
+        (username, email, user_id)
+    )
+    if conflict:
+        flash('Username or email already in use by another account')
+        return redirect(url_for('auth.profile'))
+
+    # build update
+    params = [username, email, nickname]
+    set_clause = 'username = %s, email_address = %s, nickname = %s'
+
+    if new_password:
+        pw_hash = generate_password_hash(new_password)
+        set_clause += ', password_hash = %s'
+        params.append(pw_hash)
+
+    params.append(user_id)
+
+    sql = f'UPDATE users SET {set_clause} WHERE user_id = %s RETURNING user_id, username'
+    updated = execute(sql, tuple(params), returning=True)
+    if not updated:
+        flash('Failed to update profile')
+        return redirect(url_for('auth.profile'))
+
+    # update session username if changed
+    session['username'] = updated.get('username')
+    flash('Profile updated')
+    return redirect(url_for('auth.profile'))
